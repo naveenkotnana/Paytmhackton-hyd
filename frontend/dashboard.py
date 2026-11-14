@@ -22,8 +22,8 @@ for _p in [str(BACKEND_DIR), str(PROJECT_ROOT), str(APP_DIR), str(FRONTEND_DIR)]
 
 # Pre-bind app in sys.modules to prevent circular import or namespace shadowing
 try:
-    import backend.app as _backend_app
-    sys.modules["app"] = _backend_app
+    import app as _app_mod
+    sys.modules["app"] = _app_mod
 except ImportError:
     pass
 
@@ -65,6 +65,7 @@ from dashboard.styles import PAYTM_THEME_CSS
 from dashboard.views.admin_dashboard import render_admin_dashboard
 from dashboard.views.customer_portal import render_customer_portal
 from dashboard.views.merchant_portal import render_merchant_portal
+from dashboard.views.opportunity_pulse import render_opportunity_pulse
 
 st.set_page_config(
     page_title="PayBridge Payments — AI FinOps Platform",
@@ -200,6 +201,7 @@ with st.sidebar:
         nav_options = [
             "Overview",
             "Payments",
+            "Opportunity Pulse",
             "Anomalies",
             "AI Investigation",
             "Data Pipeline",
@@ -212,6 +214,7 @@ with st.sidebar:
             "Overview",
             "Orders",
             "Payments",
+            "Opportunity Pulse",
         ]
     else:  # CUSTOMER
         st.markdown('<div class="sidebar-section-header">CUSTOMER NAVIGATION</div>', unsafe_allow_html=True)
@@ -259,10 +262,16 @@ with st.sidebar:
 active_page = st.session_state.selected_nav
 
 if current_role == "ADMIN":
-    render_admin_dashboard(role="ADMIN", page=active_page)
+    if active_page == "Opportunity Pulse":
+        render_opportunity_pulse(role="ADMIN", page=active_page)
+    else:
+        render_admin_dashboard(role="ADMIN", page=active_page)
 
 elif current_role == "MERCHANT":
-    render_merchant_portal(merchant_id="mid_rameshwaram_01", page=active_page)
+    if active_page == "Opportunity Pulse":
+        render_opportunity_pulse(role="MERCHANT", merchant_id="mid_rameshwaram_01", page=active_page)
+    else:
+        render_merchant_portal(merchant_id="mid_rameshwaram_01", page=active_page)
 
 else:  # CUSTOMER
     render_customer_portal(customer_id="cust_aarav_01", page=active_page)

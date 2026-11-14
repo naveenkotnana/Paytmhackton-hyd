@@ -5,7 +5,7 @@ $workspaceDb = Join-Path $PSScriptRoot "backend/data/paybridge.db"
 $submissionDb = Join-Path $PSScriptRoot "backend/data/payment_data.db"
 $selectedDb = if (Test-Path -LiteralPath $workspaceDb) { $workspaceDb } else { $submissionDb }
 $env:DATABASE_URL = "sqlite:///" + $selectedDb.Replace("\", "/")
-python -c "import streamlit, sqlalchemy, langgraph, razorpay, sklearn, fastapi, jwt, httpx"
+python -c "import streamlit, sqlalchemy, langgraph, sklearn, fastapi, jwt, httpx"
 if ($LASTEXITCODE -ne 0) {
     python -m pip install -r requirements.txt
     if ($LASTEXITCODE -ne 0) { throw "Dependency installation failed." }

@@ -17,8 +17,8 @@ for _p in [str(_backend_dir), str(_root_dir), str(_frontend_dir)]:
         sys.path.insert(0, _p)
 
 try:
-    import backend.app as _backend_app
-    sys.modules.setdefault("app", _backend_app)
+    import app as _app_mod  # noqa: F401
+    sys.modules.setdefault("app", _app_mod)
 except ImportError:
     pass
 

@@ -4,7 +4,7 @@ numpy>=1.24
 openpyxl>=3.1
 
 # Database
-SQLAlchemy>=2.0
+SQLAlchemy[mypy]>=2.0
 psycopg2-binary>=2.9      # PostgreSQL driver (SQLite works with no driver)
 alembic>=1.13
 
@@ -16,7 +16,6 @@ fastapi>=0.110
 uvicorn[standard]>=0.27
 pydantic>=2.5
 python-multipart>=0.0.9
-PAYTM>=1.4.1
 
 # Auth
 PyJWT>=2.8
@@ -35,3 +34,4 @@ pytest-cov>=4.1
 httpx>=0.26
 ruff==0.12.0
 mypy>=1.9.0
+pandas-stubs>=2.2
