@@ -33,7 +33,7 @@ def test_payment_anomaly_detection_with_failures():
                 currency="INR",
                 method="UPI",
                 bank="SBI",
-                gateway="RAZORPAY",
+                gateway="PAYTM",
                 status=status,
                 error_code=error
             ))

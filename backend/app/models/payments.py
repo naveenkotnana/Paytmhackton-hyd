@@ -1,8 +1,8 @@
-"""Razorpay-Inspired AI Payments Domain Models.
+"""PAYTM-Inspired AI Payments Domain Models.
 
 Schema decisions:
 - Natural fintech identifiers with entity prefixes (pay_, order_, rfnd_, setl_, mid_)
-  matching Razorpay's production API standard.
+  matching PAYTM's production API standard.
 - Numeric(14, 2) used for all monetary amounts to eliminate floating point rounding error.
 - Indexes on merchant_id, status, method, bank, gateway, and created_at to support
   sub-50ms analytics and slicing.
@@ -93,7 +93,7 @@ class PaymentOrder(Base):
 
 
 class CheckoutRequest(Base):
-    """Durable idempotency reservation for Razorpay order creation."""
+    """Durable idempotency reservation for PAYTM order creation."""
     __tablename__ = "checkout_requests"
 
     idempotency_key = Column(String(100), primary_key=True)
@@ -129,7 +129,7 @@ class PaymentTransaction(Base):
     method = Column(String(20), index=True, nullable=False)  # UPI, CARD, NETBANKING, WALLET
     card_network = Column(String(20), nullable=True)  # VISA, MASTERCARD, RUPAY
     bank = Column(String(30), index=True, nullable=True)  # HDFC, ICICI, AXIS, SBI
-    gateway = Column(String(30), index=True, nullable=False)  # RAZORPAY_DIRECT, HDFC_PG, PAYU
+    gateway = Column(String(30), index=True, nullable=False)  # PAYTM_DIRECT, HDFC_PG, PAYU
     status = Column(String(20), index=True, nullable=False)  # AUTHORIZED, CAPTURED, FAILED, REFUNDED
     error_code = Column(String(60), nullable=True)  # e.g., BAD_REQUEST_GATEWAY_DOWN
     error_description = Column(Text, nullable=True)
@@ -150,7 +150,7 @@ Index("ix_pay_method_gateway", PaymentTransaction.method, PaymentTransaction.gat
 
 
 class PaymentEvent(Base):
-    """Immutable event log — each state transition is a new row.
+    """Immutable event log â€” each state transition is a new row.
 
     Deduplication key = (payment_id, event_type): the ingestion layer skips
     re-insertion of an already-recorded event so out-of-order or duplicate
@@ -170,7 +170,7 @@ class PaymentEvent(Base):
     event_source = Column(String(30), nullable=False, default="SIMULATOR")
     # SIMULATOR | WEBHOOK | MANUAL_RECONCILIATION
     idempotency_key = Column(String(100), unique=True, index=True, nullable=False)
-    # Composite: payment_id + "::" + event_type — enforced at DB level
+    # Composite: payment_id + "::" + event_type â€” enforced at DB level
     occurred_at = Column(DateTime, nullable=False, index=True)
     ingested_at = Column(DateTime, server_default=func.now(), index=True)
 
@@ -211,8 +211,8 @@ class PaymentIncident(Base):
 
     Design: one incident per operational event (e.g., 'HDFC gateway degradation').
     Many individual anomaly signals are merged here to avoid alert fatigue.
-    Severity, affected_banks, affected_methods are populated by the engine —
-    never by an LLM — to ensure reproducibility.
+    Severity, affected_banks, affected_methods are populated by the engine â€”
+    never by an LLM â€” to ensure reproducibility.
     """
 
     __tablename__ = "payment_incidents"
@@ -367,7 +367,7 @@ class PaymentIngestionRun(Base):
     __tablename__ = "payment_ingestion_runs"
 
     run_id = Column(String(50), primary_key=True)  # RUN-YYYYMMDD-UUID
-    source_type = Column(String(30), nullable=False)  # CSV_IMPORT, URL_IMPORT, RAZORPAY_WEBHOOK
+    source_type = Column(String(30), nullable=False)  # CSV_IMPORT, URL_IMPORT, PAYTM_WEBHOOK
     source_identifier = Column(String(255), nullable=False)  # file name or URL
     status = Column(String(20), nullable=False, default="PROCESSING")  # PROCESSING, COMPLETED, FAILED
     records_received = Column(Integer, default=0)

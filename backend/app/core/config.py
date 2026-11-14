@@ -72,9 +72,9 @@ class Settings:
     JWT_ALG: str = "HS256"
     JWT_EXPIRE_MINUTES: int = int(os.getenv("JWT_EXPIRE_MINUTES", "120"))
 
-    # --- Razorpay Standard Web Checkout Integration ---------------------
-    RAZORPAY_KEY_ID: str = os.getenv("RAZORPAY_KEY_ID", "")
-    RAZORPAY_KEY_SECRET: str = os.getenv("RAZORPAY_KEY_SECRET", "")
+    # --- PAYTM Standard Web Checkout Integration ---------------------
+    PAYTM_KEY_ID: str = os.getenv("PAYTM_KEY_ID", "")
+    PAYTM_KEY_SECRET: str = os.getenv("PAYTM_KEY_SECRET", "")
 
     # Comma-separated trusted browser origins. Demo defaults are local only.
     ALLOWED_ORIGINS: tuple[str, ...] = tuple(

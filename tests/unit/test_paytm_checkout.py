@@ -1,4 +1,4 @@
-"""Provider-stubbed checkout safety tests; no test calls Razorpay's network."""
+"""Provider-stubbed checkout safety tests; no test calls PAYTM's network."""
 import hashlib
 import hmac
 from unittest.mock import MagicMock
@@ -9,8 +9,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from app.api.checkout import (
-    CreateOrderRequest, VerifyPaymentRequest, create_razorpay_order,
-    verify_razorpay_payment,
+    CreateOrderRequest, VerifyPaymentRequest, create_PAYTM_order,
+    verify_PAYTM_payment,
 )
 from app.core.config import settings
 from app.db.base import Base
@@ -29,9 +29,9 @@ def provider_stub(monkeypatch):
         "amount": 28000, "currency": "INR", "status": "captured",
         "method": "upi", "bank": "HDFC",
     }
-    monkeypatch.setattr(settings, "RAZORPAY_KEY_ID", "rzp_test_unit")
-    monkeypatch.setattr(settings, "RAZORPAY_KEY_SECRET", "unit-test-secret")
-    monkeypatch.setattr("app.api.checkout.razorpay.Client", lambda **kwargs: client)
+    monkeypatch.setattr(settings, "PAYTM_KEY_ID", "paytm_test_unit")
+    monkeypatch.setattr(settings, "PAYTM_KEY_SECRET", "unit-test-secret")
+    monkeypatch.setattr("app.api.checkout.PAYTM.Client", lambda **kwargs: client)
     return client
 
 
@@ -57,7 +57,7 @@ def mem_db():
 def create(db, key="key-1", items=None, customer="cust_aarav_01"):
     if items is None:
         items = {"masala_dosa": 2, "filter_coffee": 1}
-    return create_razorpay_order(
+    return create_PAYTM_order(
         CreateOrderRequest(items=items),
         db, customer_id=customer, merchant_id="mid_rameshwaram_01",
         idempotency_key=key,
@@ -66,16 +66,16 @@ def create(db, key="key-1", items=None, customer="cust_aarav_01"):
 
 def signed(order_id="order_unit_test", payment_id="pay_unit_test", secret="unit-test-secret"):
     signature = hmac.new(secret.encode(), f"{order_id}|{payment_id}".encode(), hashlib.sha256).hexdigest()
-    return VerifyPaymentRequest(razorpay_order_id=order_id,
-                                razorpay_payment_id=payment_id,
-                                razorpay_signature=signature)
+    return VerifyPaymentRequest(PAYTM_order_id=order_id,
+                                PAYTM_payment_id=payment_id,
+                                PAYTM_signature=signature)
 
 
 def test_server_prices_cart_and_persists_order(mem_db, provider_stub):
     response = create(mem_db)
     assert response.amount == 28000
     assert response.currency == "INR"
-    assert response.key_id == "rzp_test_unit"
+    assert response.key_id == "paytm_test_unit"
     assert mem_db.get(PaymentOrder, response.order_id).amount == 280
     assert mem_db.get(CafeOrderItems, response.order_id).total == 280
     assert provider_stub.order.create.call_args.kwargs["data"]["amount"] == 28000
@@ -113,7 +113,7 @@ def test_customer_must_belong_to_configured_merchant(mem_db, provider_stub):
 
 
 def test_missing_credentials_fail_before_reservation_or_provider_call(mem_db, provider_stub, monkeypatch):
-    monkeypatch.setattr(settings, "RAZORPAY_KEY_SECRET", "")
+    monkeypatch.setattr(settings, "PAYTM_KEY_SECRET", "")
     with pytest.raises(HTTPException) as exc:
         create(mem_db)
     assert exc.value.status_code == 503
@@ -137,9 +137,9 @@ def test_provider_create_timeout_leaves_uncertain_idempotent_reservation(mem_db,
 def test_invalid_signature_never_changes_order_or_payment_state(mem_db, provider_stub):
     create(mem_db)
     req = signed()
-    req.razorpay_signature = "invalid"
+    req.PAYTM_signature = "invalid"
     with pytest.raises(HTTPException) as exc:
-        verify_razorpay_payment(req, mem_db, customer_id="cust_aarav_01")
+        verify_PAYTM_payment(req, mem_db, customer_id="cust_aarav_01")
     assert exc.value.status_code == 400
     assert mem_db.get(PaymentOrder, "order_unit_test").status == "CREATED"
     assert mem_db.query(PaymentTransaction).count() == 0
@@ -148,7 +148,7 @@ def test_invalid_signature_never_changes_order_or_payment_state(mem_db, provider
 def test_wrong_customer_cannot_verify_order(mem_db, provider_stub):
     create(mem_db)
     with pytest.raises(HTTPException) as exc:
-        verify_razorpay_payment(signed(), mem_db, customer_id="other_customer")
+        verify_PAYTM_payment(signed(), mem_db, customer_id="other_customer")
     assert exc.value.status_code == 404
     assert mem_db.query(PaymentTransaction).count() == 0
 
@@ -161,7 +161,7 @@ def test_provider_mismatch_rejected_without_state_change(mem_db, provider_stub, 
     create(mem_db)
     provider_stub.payment.fetch.return_value[field] = value
     with pytest.raises(HTTPException) as exc:
-        verify_razorpay_payment(signed(), mem_db, customer_id="cust_aarav_01")
+        verify_PAYTM_payment(signed(), mem_db, customer_id="cust_aarav_01")
     assert exc.value.status_code == 409
     assert mem_db.query(PaymentTransaction).count() == 0
     assert mem_db.get(PaymentOrder, "order_unit_test").status == "CREATED"
@@ -169,8 +169,8 @@ def test_provider_mismatch_rejected_without_state_change(mem_db, provider_stub, 
 
 def test_successful_verification_is_idempotent(mem_db, provider_stub):
     create(mem_db)
-    first = verify_razorpay_payment(signed(), mem_db, customer_id="cust_aarav_01")
-    second = verify_razorpay_payment(signed(), mem_db, customer_id="cust_aarav_01")
+    first = verify_PAYTM_payment(signed(), mem_db, customer_id="cust_aarav_01")
+    second = verify_PAYTM_payment(signed(), mem_db, customer_id="cust_aarav_01")
     assert first.status == second.status == "success"
     assert mem_db.get(PaymentOrder, "order_unit_test").status == "PAID"
     assert mem_db.query(PaymentTransaction).count() == 1
@@ -181,7 +181,7 @@ def test_provider_fetch_failure_does_not_mark_paid(mem_db, provider_stub):
     create(mem_db)
     provider_stub.payment.fetch.side_effect = TimeoutError("provider unavailable")
     with pytest.raises(HTTPException) as exc:
-        verify_razorpay_payment(signed(), mem_db, customer_id="cust_aarav_01")
+        verify_PAYTM_payment(signed(), mem_db, customer_id="cust_aarav_01")
     assert exc.value.status_code == 502
     assert mem_db.get(PaymentOrder, "order_unit_test").status == "CREATED"
     assert mem_db.query(PaymentTransaction).count() == 0

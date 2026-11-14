@@ -53,7 +53,7 @@ INDIAN_MERCHANTS = [
 
 PAYMENT_METHODS = ["UPI", "CARD", "NETBANKING", "WALLET"]
 BANKS = ["HDFC", "ICICI", "AXIS", "SBI", "KOTAK"]
-GATEWAYS = ["RAZORPAY_DIRECT", "HDFC_PG", "PAYU"]
+GATEWAYS = ["PAYTM_DIRECT", "HDFC_PG", "PAYU"]
 
 
 def generate_50k_csv(csv_path: Path, total_records: int = 50000) -> Path:
@@ -91,7 +91,7 @@ def generate_50k_csv(csv_path: Path, total_records: int = 50000) -> Path:
                 method = "WALLET"
 
             bank = random.choice(BANKS)
-            gateway = "RAZORPAY_DIRECT" if random.random() < 0.70 else random.choice(GATEWAYS)
+            gateway = "PAYTM_DIRECT" if random.random() < 0.70 else random.choice(GATEWAYS)
 
             # Amount logic by category
             if mid == "mid_rameshwaram_01":

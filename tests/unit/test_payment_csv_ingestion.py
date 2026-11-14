@@ -85,7 +85,7 @@ def test_ingest_valid_csv(mem_db):
     service = PaymentCSVIngestionService(session, archive_dir=tmp_path / "archive", rejected_dir=tmp_path / "rejected")
 
     csv_data = """transaction_id,order_id,merchant_id,amount,currency,payment_method,status,bank,gateway,date
-pay_test_001,order_test_001,mid_swiggy_01,1500.00,INR,UPI,CAPTURED,SBI,RAZORPAY_DIRECT,2026-05-10 12:00:00
+pay_test_001,order_test_001,mid_swiggy_01,1500.00,INR,UPI,CAPTURED,SBI,PAYTM_DIRECT,2026-05-10 12:00:00
 pay_test_002,order_test_002,mid_swiggy_01,2400.50,INR,CARD,SUCCESS,HDFC,HDFC_PG,2026-05-10 12:05:00
 pay_test_003,order_test_003,mid_swiggy_01,300.00,INR,NETBANKING,FAILED,ICICI,PAYU,2026-05-10 12:10:00
 """
@@ -122,11 +122,11 @@ def test_ingest_csv_with_rejected_rows_and_duplicates(mem_db):
     service = PaymentCSVIngestionService(session, archive_dir=tmp_path / "archive", rejected_dir=tmp_path / "rejected")
 
     csv_data = """txn_id,order_id,merchant_id,txn_amount,currency,payment_mode,payment_status,bank,gateway,timestamp
-pay_dup_001,order_dup_001,mid_swiggy_01,500.00,INR,UPI,CAPTURED,SBI,RAZORPAY_DIRECT,2026-05-10T12:00:00Z
-pay_dup_001,order_dup_001,mid_swiggy_01,500.00,INR,UPI,CAPTURED,SBI,RAZORPAY_DIRECT,2026-05-10T12:00:00Z
-pay_invalid_amt,order_invalid_001,mid_swiggy_01,-200.00,INR,UPI,CAPTURED,SBI,RAZORPAY_DIRECT,2026-05-10T12:00:00Z
-pay_bad_curr,order_bad_curr,mid_swiggy_01,1000.00,USD,UPI,CAPTURED,SBI,RAZORPAY_DIRECT,2026-05-10T12:00:00Z
-,order_missing_payment,mid_swiggy_01,750.00,INR,UPI,CAPTURED,SBI,RAZORPAY_DIRECT,2026-05-10T12:00:00Z
+pay_dup_001,order_dup_001,mid_swiggy_01,500.00,INR,UPI,CAPTURED,SBI,PAYTM_DIRECT,2026-05-10T12:00:00Z
+pay_dup_001,order_dup_001,mid_swiggy_01,500.00,INR,UPI,CAPTURED,SBI,PAYTM_DIRECT,2026-05-10T12:00:00Z
+pay_invalid_amt,order_invalid_001,mid_swiggy_01,-200.00,INR,UPI,CAPTURED,SBI,PAYTM_DIRECT,2026-05-10T12:00:00Z
+pay_bad_curr,order_bad_curr,mid_swiggy_01,1000.00,USD,UPI,CAPTURED,SBI,PAYTM_DIRECT,2026-05-10T12:00:00Z
+,order_missing_payment,mid_swiggy_01,750.00,INR,UPI,CAPTURED,SBI,PAYTM_DIRECT,2026-05-10T12:00:00Z
 pay_valid_002,order_valid_002,mid_swiggy_01,1200.00,INR,CARD,PAID,HDFC,HDFC_PG,2026-05-10T12:00:00Z
 """
     buffer = io.StringIO(csv_data)
@@ -168,7 +168,7 @@ def test_unknown_or_missing_source_values_are_rejected(mem_db, field, value, rea
     headers = ["payment_id", "order_id", "merchant_id", "amount", "currency",
                "method", "status", "bank", "gateway", "timestamp"]
     row = ["pay_bad_row", "order_bad_row", "mid_swiggy_01", "100", "INR",
-           "UPI", "CAPTURED", "SBI", "RAZORPAY_DIRECT", "2026-05-10T12:00:00Z"]
+           "UPI", "CAPTURED", "SBI", "PAYTM_DIRECT", "2026-05-10T12:00:00Z"]
     index = {"payment_mode": 5, "payment_status": 6, "bank_name": 7,
              "gateway_name": 8, "timestamp": 9}.get(field)
     if index is None:

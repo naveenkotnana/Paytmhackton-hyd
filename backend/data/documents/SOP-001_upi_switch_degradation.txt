@@ -10,7 +10,7 @@ CLASSIFICATION: SYNTHETIC
 1. SCOPE AND OBJECTIVE
 This standard operating procedure defines the detection thresholds, automated mitigation,
 and triage escalation for UPI bank switch degradations across partner banks (HDFC, ICICI,
-SBI, AXIS, KOTAK) and payment gateways (Razorpay, Cashfree, PayU).
+SBI, AXIS, KOTAK) and payment gateways (PAYTM, Cashfree, PayU).
 
 2. SEVERITY THRESHOLDS
 - CRITICAL: Success rate (SR) drop >= 30 percentage points below rolling 24-hour baseline,

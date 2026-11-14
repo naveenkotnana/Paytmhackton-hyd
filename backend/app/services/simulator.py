@@ -1,4 +1,4 @@
-"""Synthetic Payment Event Simulator for Razorpay-Inspired AI Payments.
+"""Synthetic Payment Event Simulator for PAYTM-Inspired AI Payments.
 
 Generates realistic Indian payment transactions, orders, refunds, and gateway telemetry.
 Features:
@@ -37,7 +37,7 @@ PAYMENT_METHODS = ["UPI", "CARD", "NETBANKING", "WALLET"]
 METHOD_WEIGHTS = [0.65, 0.22, 0.09, 0.04]
 
 BANKS = ["HDFC", "ICICI", "AXIS", "SBI", "KOTAK"]
-GATEWAYS = ["HDFC_SMARTHUB", "ICICI_PAYSEAL", "AXIS_EPG", "RAZORPAY_DIRECT"]
+GATEWAYS = ["HDFC_SMARTHUB", "ICICI_PAYSEAL", "AXIS_EPG", "PAYTM_DIRECT"]
 
 ERROR_CODES = [
     ("BAD_REQUEST_GATEWAY_DOWN", "Payment gateway provider is temporarily unreachable"),

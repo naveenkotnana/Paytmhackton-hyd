@@ -39,7 +39,7 @@ def test_validate_url_safety_scheme():
 
 
 def test_validate_url_safety_domain_allowlist():
-    allowed = ["raw.githubusercontent.com", "api.razorpay.com"]
+    allowed = ["raw.githubusercontent.com", "api.PAYTM.com"]
 
     # Disallowed domain
     with pytest.raises(SSRFSecurityError, match="not in approved allowlist"):

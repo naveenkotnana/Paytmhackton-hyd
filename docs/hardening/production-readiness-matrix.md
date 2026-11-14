@@ -1,6 +1,6 @@
 # PayBridge production readiness matrix
 
-Status is based on repository code and checks run on 2026-11-08. “Implemented” means the stated behavior exists in this branch; it does not imply production certification.
+Status is based on repository code and checks run on 2026-11-08. â€œImplementedâ€ means the stated behavior exists in this branch; it does not imply production certification.
 
 | Capability | Status | Evidence / limitation |
 |---|---|---|
@@ -9,7 +9,7 @@ Status is based on repository code and checks run on 2026-11-08. “Implemented�
 | API authorization and current-user lookup | IMPLEMENTED BUT NOT FULLY TESTED | JWT expiry and active-user checks, role permissions, and protected endpoints exist. Full cross-tenant coverage of every endpoint remains incomplete. |
 | Login throttling | IMPLEMENTED AND TESTED | Failed attempts are stored in SQL shared by app workers; eight failures in a 15-minute window block for 15 minutes. 3 focused tests passed. Proxy identity configuration still needs deployment review. |
 | Production Streamlit identity and page calls | NOT IMPLEMENTED | Production Streamlit is deliberately stopped by a fail-closed guard because the current screens still directly access services/database and role state. It must be migrated to authenticated APIs before production UI use. |
-| Razorpay Standard Checkout | IMPLEMENTED AND TESTED | Server prices canonical cart, checks configured credentials, uses idempotency reservations, authenticates customer route, validates HMAC and provider capture state, and commits local payment/order/event/audit atomically. 21 checkout tests are included in suite. Provider is stubbed in tests; no real sandbox payment was run in this phase. |
+| PAYTM Standard Checkout | IMPLEMENTED AND TESTED | Server prices canonical cart, checks configured credentials, uses idempotency reservations, authenticates customer route, validates HMAC and provider capture state, and commits local payment/order/event/audit atomically. 21 checkout tests are included in suite. Provider is stubbed in tests; no real sandbox payment was run in this phase. |
 | Checkout recovery | IMPLEMENTED BUT NOT FULLY TESTED | Bounded reconciliation service restores a missing local order only after matching provider order ID, amount, currency, receipt, and status. It does not mark payments captured. Scheduling and live provider recovery are not verified. |
 | PostgreSQL production configuration | IMPLEMENTED BUT NOT FULLY TESTED | Docker Compose has a PostgreSQL production API profile; CI is configured with PostgreSQL. PostgreSQL service/build/integration could not run locally because Docker and `psql` are unavailable. |
 | Alembic schema lifecycle | IMPLEMENTED BUT NOT FULLY TESTED | Versioned schema and additive revisions exist. Fresh and legacy SQLite upgrades reached head; a legacy copy retained 50,004 payment rows. PostgreSQL migration and data-preserving upgrade are not verified. |
@@ -24,7 +24,7 @@ Status is based on repository code and checks run on 2026-11-08. “Implemented�
 | Docker image hardening and Compose runtime | BLOCKED BY EXTERNAL REVIEW | Docker CLI/Compose are unavailable in this environment; image build, non-root behavior, health, and PostgreSQL startup were not verified. |
 | Backup/restore | NOT IMPLEMENTED | A command runbook is provided, but no PostgreSQL backup/restore smoke test was possible here. |
 | Payment routing / mitigation | SIMULATED | Approval records a decision only. It does not reroute production traffic or move funds. |
-| Razorpay / PCI / regulatory compliance | BLOCKED BY EXTERNAL REVIEW | No compliance audit or qualified payment-security review was performed. |
+| PAYTM / PCI / regulatory compliance | BLOCKED BY EXTERNAL REVIEW | No compliance audit or qualified payment-security review was performed. |
 
 ## Overall assessment
 

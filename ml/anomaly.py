@@ -61,7 +61,7 @@ def build_payment_features(db: Session) -> pd.DataFrame:
 
     sql = text("""
         SELECT
-            COALESCE(gateway, 'RAZORPAY') AS gateway,
+            COALESCE(gateway, 'PAYTM') AS gateway,
             COALESCE(method, 'UNKNOWN') AS method,
             COALESCE(bank, 'UNKNOWN') AS bank,
             COUNT(*) AS total_attempts,

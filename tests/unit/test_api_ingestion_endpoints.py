@@ -76,7 +76,7 @@ def test_post_csv_ingestion_endpoint():
     unique_tx_id = f"pay_api_{uuid.uuid4().hex[:8]}"
     csv_content = (
         "transaction_id,order_id,merchant_id,amount,currency,status,method,bank,gateway,created_at\n"
-        f"{unique_tx_id},order_{unique_tx_id},mid_rameshwaram_01,1500.0,INR,CAPTURED,UPI,HDFC,RAZORPAY_DIRECT,2026-11-01 10:00:00\n"
+        f"{unique_tx_id},order_{unique_tx_id},mid_rameshwaram_01,1500.0,INR,CAPTURED,UPI,HDFC,PAYTM_DIRECT,2026-11-01 10:00:00\n"
     ).encode("utf-8")
     file = io.BytesIO(csv_content)
 

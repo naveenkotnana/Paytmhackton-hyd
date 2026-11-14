@@ -2,7 +2,7 @@
 
 Security Model:
 1. Domain Allowlist: Strictly checks host against approved trusted domains
-   (e.g., github.com, raw.githubusercontent.com, razorpay.com, internal test hosts).
+   (e.g., github.com, raw.githubusercontent.com, PAYTM.com, internal test hosts).
 2. SSRF Protection:
    - Resolves host DNS to IP address before connection.
    - Blocks private, loopback, link-local, multicast, and reserved IP ranges (RFC 1918, RFC 3927).
@@ -36,9 +36,9 @@ DEFAULT_TIMEOUT_SECONDS = 10.0
 DEFAULT_ALLOWED_DOMAINS = [
     "raw.githubusercontent.com",
     "github.com",
-    "api.razorpay.com",
-    "razorpay.com",
-    "docs.razorpay.com",
+    "api.PAYTM.com",
+    "PAYTM.com",
+    "docs.PAYTM.com",
     "npci.org.in",
     "rbi.org.in",
     "huggingface.co",

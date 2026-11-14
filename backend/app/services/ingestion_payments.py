@@ -105,7 +105,7 @@ BANK_NORMALIZATION = {
     "kotak": "KOTAK", "kotak mahindra": "KOTAK", "kotak bank": "KOTAK",
 }
 
-ALLOWED_GATEWAYS = {"RAZORPAY_DIRECT", "RAZORPAY", "HDFC_PG", "PAYU",
+ALLOWED_GATEWAYS = {"PAYTM_DIRECT", "PAYTM", "HDFC_PG", "PAYU",
                    "CASHFREE", "PHONEPE", "STRIPE"}
 
 

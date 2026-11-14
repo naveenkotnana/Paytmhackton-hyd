@@ -32,7 +32,7 @@ The setup script generated or refreshed `backend/data/raw/payment_platform_50000
 
 ## Initial architecture and security observations
 
-- Configuration is centralized in `backend/app/core/config.py`, but demo mode defaults to true, the JWT secret has a known development default, and Razorpay credentials have mock defaults.
+- Configuration is centralized in `backend/app/core/config.py`, but demo mode defaults to true, the JWT secret has a known development default, and PAYTM credentials have mock defaults.
 - FastAPI startup rejects a known weak JWT only when demo mode is false. It still calls `seed_demo_users`; the helper returns without seeding in production, but startup does not refuse to run if demo users already exist.
 - CORS permits every origin. Request metrics are process-local counters.
 - Checkout routes in `backend/app/api/checkout.py` do not currently require an authenticated customer. The checkout module reads `.env` from inside request handling and accepts customer and merchant IDs from its request model.
@@ -40,13 +40,13 @@ The setup script generated or refreshed `backend/data/raw/payment_platform_50000
 - Streamlit code imports `SessionLocal` and ORM models directly in dashboard, Customer, Merchant, Admin, and investigation views. This bypasses FastAPI authorization for those paths.
 - SQLite is the default; PostgreSQL URL support exists. `docker-compose.yml` runs API and dashboard against the same shared SQLite volume, not PostgreSQL.
 - `backend/app/db/base.py:init_db()` uses `Base.metadata.create_all()`. The checked-in initial Alembic revision is empty, so a fresh Alembic upgrade does not create application tables.
-- API surface includes `/auth/login`, `/auth/me`, `/alerts`, `/workflows`, `/revenue`, `/analytics/queries`, `/anomalies`, `/data-quality`, `/incidents`, `/audit`, `/metrics`, `/evaluation`, `/api/v1/simulation/*`, `/api/v1/payments/*`, `/api/v1/ingestion/*`, `/api/v1/events`, and Razorpay `/api/create-order` and `/api/verify-payment`.
+- API surface includes `/auth/login`, `/auth/me`, `/alerts`, `/workflows`, `/revenue`, `/analytics/queries`, `/anomalies`, `/data-quality`, `/incidents`, `/audit`, `/metrics`, `/evaluation`, `/api/v1/simulation/*`, `/api/v1/payments/*`, `/api/v1/ingestion/*`, `/api/v1/events`, and PAYTM `/api/create-order` and `/api/verify-payment`.
 - Current RAG defaults to local TF-IDF. An Ollama model was visible during bootstrap, but model availability is environment-specific and not a production guarantee.
 
 ## Baseline failure/limitation ledger
 
 - The single skipped test is conditional; its exact reason is preserved in `.paybridge_interview_build/baseline-ci-pytest.log` and should be checked before making claims about provider/LLM verification.
 - The agent evaluation is a small deterministic suite, not a comprehensive security or quality benchmark.
-- There is no PostgreSQL integration result, live Razorpay sandbox transaction result, backup/restore smoke test, or Docker/Compose result from this environment.
+- There is no PostgreSQL integration result, live PAYTM sandbox transaction result, backup/restore smoke test, or Docker/Compose result from this environment.
 - The 50K generator result is synthetic and does not establish production ingestion performance or correctness under concurrent/restart conditions.
 - Passing lint and the bootstrapped test suite do not mean the app is production-ready.

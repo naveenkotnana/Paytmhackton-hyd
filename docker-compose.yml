@@ -62,8 +62,8 @@ services:
       JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET to a unique 32+ character value}
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:?set ALLOWED_ORIGINS}
       CHECKOUT_MERCHANT_ID: ${CHECKOUT_MERCHANT_ID:?set CHECKOUT_MERCHANT_ID}
-      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID:-}
-      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET:-}
+      PAYTM_KEY_ID: ${PAYTM_KEY_ID:-}
+      PAYTM_KEY_SECRET: ${PAYTM_KEY_SECRET:-}
     command: >
       sh -c "cd backend && alembic upgrade head && cd .. &&
       uvicorn backend:app --host 0.0.0.0 --port 8000"

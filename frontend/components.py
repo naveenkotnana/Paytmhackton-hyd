@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Reusable Razorpay-inspired Fintech UI Components for PayBridge Dashboard."""
+"""Reusable PAYTM-inspired Fintech UI Components for PayBridge Dashboard."""
 import datetime as dt
 import os
 import pandas as pd
@@ -232,16 +232,16 @@ def api_call(method: str, path: str, **kw):
 def format_inr(val: float, compact: bool = False) -> str:
     """Format numeric values as Indian Rupees (INR) with standard comma groupings or Lakh notation."""
     if val is None or pd.isna(val):
-        return "₹0"
+        return "â‚¹0"
     v = float(val)
     if compact:
         if abs(v) >= 10000000:
-            return f"₹{v / 10000000:.2f}\u00A0Cr"
+            return f"â‚¹{v / 10000000:.2f}\u00A0Cr"
         if abs(v) >= 100000:
-            return f"₹{v / 100000:.2f}\u00A0L"
+            return f"â‚¹{v / 100000:.2f}\u00A0L"
         if abs(v) >= 1000:
-            return f"₹{v / 1000:.1f}\u00A0k"
-        return f"₹{v:,.0f}"
+            return f"â‚¹{v / 1000:.1f}\u00A0k"
+        return f"â‚¹{v:,.0f}"
 
     # Standard Indian numbering system (xx,xx,xxx)
     s = f"{abs(v):.0f}"
@@ -259,12 +259,12 @@ def format_inr(val: float, compact: bool = False) -> str:
         groups.reverse()
         grouped = ",".join(groups) + "," + last3
 
-    return f"{'-' if v < 0 else ''}₹{grouped}"
+    return f"{'-' if v < 0 else ''}â‚¹{grouped}"
 
 
 def render_top_header(title: str, subtitle: str, role: str, username: str = ""):
     """Render the executive top header bar with live status, clearance badge, and user context."""
-    now_str = dt.datetime.now().strftime("%b %d, %Y · %H:%M IST")
+    now_str = dt.datetime.now().strftime("%b %d, %Y Â· %H:%M IST")
 
     role_titles = {
         "ADMIN": ("Platform Administrator", "LEVEL 3 GOVERNANCE", "badge-critical"),
@@ -294,7 +294,7 @@ def render_top_header(title: str, subtitle: str, role: str, username: str = ""):
             <div style="background:#E2E8F0; width:1px; height:16px;"></div>
             <div style="display:flex; align-items:center; gap:6px; background:#FFFFFF; padding:4px 10px; border-radius:6px; font-weight:600; font-size:0.78rem; color:#0F172A; border:1px solid #CBD5E1; box-shadow:0 1px 2px rgba(0,0,0,0.02);">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2F5BFF" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                <span><strong>@{uname}</strong> · {user_title}</span>
+                <span><strong>@{uname}</strong> Â· {user_title}</span>
             </div>
         </div>
     </div>
@@ -303,13 +303,13 @@ def render_top_header(title: str, subtitle: str, role: str, username: str = ""):
 
 
 def render_kpi_card(label: str, value: str, trend_text: str = "", trend_direction: str = "up", subtext: str = ""):
-    """Render an individual Razorpay-style KPI card with top accent and trend."""
+    """Render an individual PAYTM-style KPI card with top accent and trend."""
     trend_html = ""
     if trend_text:
         if trend_direction == "up":
-            trend_html = f'<span class="trend-up">↑ {trend_text}</span>'
+            trend_html = f'<span class="trend-up">â†‘ {trend_text}</span>'
         elif trend_direction == "down":
-            trend_html = f'<span class="trend-down">↓ {trend_text}</span>'
+            trend_html = f'<span class="trend-down">â†“ {trend_text}</span>'
         else:
             trend_html = f'<span class="trend-neutral">{trend_text}</span>'
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Settings & Admin Governance View — FinOps Platform Administration."""
+"""Settings & Admin Governance View â€” FinOps Platform Administration."""
 import pandas as pd
 import streamlit as st
 
@@ -15,10 +15,10 @@ def render_settings(role: str):
     )
 
     t_gov, t_infra, t_api, t_pipe = st.tabs([
-        "🛡️ Access & Persona Governance",
-        "⚡ Infrastructure Telemetry",
-        "🔑 FinOps API & Security Credentials",
-        "⚙️ Pipeline & Model Controls"
+        "ðŸ›¡ï¸ Access & Persona Governance",
+        "âš¡ Infrastructure Telemetry",
+        "ðŸ”‘ FinOps API & Security Credentials",
+        "âš™ï¸ Pipeline & Model Controls"
     ])
 
     # ------------------------------------------------ Tab 1: Access Governance
@@ -35,7 +35,7 @@ def render_settings(role: str):
             st.markdown(f"""
             <div style="background:{'#F0FDF4' if is_active else '#F8FAFC'}; border:1px solid {'#86EFAC' if is_active else '#E2E8F0'}; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-                    <strong style="color:#0F172A; font-size:0.9rem;">🛡️ Admin</strong>
+                    <strong style="color:#0F172A; font-size:0.9rem;">ðŸ›¡ï¸ Admin</strong>
                     <span class="fintech-badge {'badge-pass' if is_active else 'badge-critical'}">{'ACTIVE' if is_active else 'COMMAND'}</span>
                 </div>
                 <div style="font-size:0.75rem; color:#64748B; line-height:1.4; min-height:48px;">
@@ -57,7 +57,7 @@ def render_settings(role: str):
             st.markdown(f"""
             <div style="background:{'#F0FDF4' if is_active else '#F8FAFC'}; border:1px solid {'#86EFAC' if is_active else '#E2E8F0'}; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-                    <strong style="color:#0F172A; font-size:0.9rem;">🏪 Merchant (Rameshwaram Cafe)</strong>
+                    <strong style="color:#0F172A; font-size:0.9rem;">ðŸª Merchant (Rameshwaram Cafe)</strong>
                     <span class="fintech-badge {'badge-pass' if is_active else 'badge-high'}">{'ACTIVE' if is_active else 'STORE'}</span>
                 </div>
                 <div style="font-size:0.75rem; color:#64748B; line-height:1.4; min-height:48px;">
@@ -80,11 +80,11 @@ def render_settings(role: str):
             st.markdown(f"""
             <div style="background:{'#F0FDF4' if is_active else '#F8FAFC'}; border:1px solid {'#86EFAC' if is_active else '#E2E8F0'}; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-                    <strong style="color:#0F172A; font-size:0.9rem;">👤 Customer (Aarav Sharma)</strong>
+                    <strong style="color:#0F172A; font-size:0.9rem;">ðŸ‘¤ Customer (Aarav Sharma)</strong>
                     <span class="fintech-badge {'badge-pass' if is_active else 'badge-low'}">{'ACTIVE' if is_active else 'BUYER'}</span>
                 </div>
                 <div style="font-size:0.75rem; color:#64748B; line-height:1.4; min-height:48px;">
-                    Razorpay Checkout order initiation, transparent transaction status, and double-debit refund tracking.
+                    PAYTM Checkout order initiation, transparent transaction status, and double-debit refund tracking.
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -108,7 +108,7 @@ def render_settings(role: str):
         """, unsafe_allow_html=True)
         rbac_matrix = [
             {"Domain / Scope": "Overview & Revenue Analytics", "Customer": "DENIED (403)", "Merchant": "STORE GMV ONLY", "Admin": "FULL REVENUE HUB"},
-            {"Domain / Scope": "Order Creation & Checkout", "Customer": "EXECUTE (₹280)", "Merchant": "RECEIVE ORDERS", "Admin": "MONITOR ONLY"},
+            {"Domain / Scope": "Order Creation & Checkout", "Customer": "EXECUTE (â‚¹280)", "Merchant": "RECEIVE ORDERS", "Admin": "MONITOR ONLY"},
             {"Domain / Scope": "AI Investigation & RAG Agent", "Customer": "DENIED (403)", "Merchant": "SUMMARY ONLY", "Admin": "FULL COPILOT"},
             {"Domain / Scope": "Exception Remediation Approvals", "Customer": "DENIED (403)", "Merchant": "DENIED (403)", "Admin": "APPROVE / REJECT"},
             {"Domain / Scope": "Cryptographic Audit Ledger", "Customer": "DENIED (403)", "Merchant": "DENIED (403)", "Admin": "VERIFY INTEGRITY"},
@@ -167,21 +167,21 @@ def render_settings(role: str):
     with t_api:
         st.markdown("""
         <div style="background:#FFFFFF; border:1px solid #E6EAF0; border-radius:10px; padding:1.25rem; margin-bottom:1.5rem;">
-            <h3 style="font-size:1rem; font-weight:700; color:#0F172A; margin:0 0 0.25rem 0;">Razorpay Standard Web Checkout API Credentials</h3>
+            <h3 style="font-size:1rem; font-weight:700; color:#0F172A; margin:0 0 0.25rem 0;">PAYTM Standard Web Checkout API Credentials</h3>
             <div style="font-size:0.8rem; color:#64748B; margin-bottom:1rem;">API key pair and server-side HMAC-SHA256 signature verification configuration:</div>
         """, unsafe_allow_html=True)
 
         k1, k2 = st.columns(2)
         with k1:
-            st.text_input("Razorpay Key ID", value="rzp_test_••••••••••••", disabled=True, help="Exposed safely to frontend checkout.js")
+            st.text_input("PAYTM Key ID", value="paytm_test_â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢", disabled=True, help="Exposed safely to frontend checkout.js")
             st.text_input("Order Creation Endpoint", value="POST /api/create-order", disabled=True)
         with k2:
-            st.text_input("Razorpay Key Secret", value="••••••••••••••••••••", type="password", disabled=True, help="Kept strictly on server in .env")
+            st.text_input("PAYTM Key Secret", value="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢", type="password", disabled=True, help="Kept strictly on server in .env")
             st.text_input("Payment Verification Endpoint", value="POST /api/verify-payment", disabled=True)
 
         st.markdown("""
             <div style="font-size:0.78rem; color:#64748B; margin-top:0.5rem;">
-                🔐 Server-side signature verified using <code>hmac.compare_digest(HMAC-SHA256(order_id + '|' + payment_id, secret))</code>. No webhooks required.
+                ðŸ” Server-side signature verified using <code>hmac.compare_digest(HMAC-SHA256(order_id + '|' + payment_id, secret))</code>. No webhooks required.
             </div>
         </div>
         """, unsafe_allow_html=True)

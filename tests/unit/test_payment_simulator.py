@@ -1,4 +1,4 @@
-"""Unit tests for the Razorpay-inspired payment simulator and canonical models."""
+"""Unit tests for the PAYTM-inspired payment simulator and canonical models."""
 from decimal import Decimal
 from app.models.payments import (
     Merchant,

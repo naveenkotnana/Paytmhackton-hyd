@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Razorpay-inspired Fintech Visual Design System for PayBridge Dashboard."""
+"""PAYTM-inspired Fintech Visual Design System for PayBridge Dashboard."""
 import textwrap
 
 import streamlit as st
 
-RAZORPAY_THEME_CSS = """
+PAYTM_THEME_CSS = """
 <style>
 /* Import modern typography */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -145,7 +145,7 @@ div[data-baseweb="popover"] li[aria-selected="true"] * {
     margin: 1.2rem 0 0.4rem 0.4rem;
 }
 
-/* Sidebar Radio Buttons styling to look like razorpay nav items */
+/* Sidebar Radio Buttons styling to look like PAYTM nav items */
 [data-testid="stSidebar"] [data-testid="stRadio"] > div {
     gap: 2px;
 }
@@ -902,7 +902,7 @@ div[data-baseweb="select"] span {
     margin: 0 !important;
 }
 
-/* Sidebar Radio - ALWAYS COLUMN & RAZORPAY BLUE ACTIVE */
+/* Sidebar Radio - ALWAYS COLUMN & PAYTM BLUE ACTIVE */
 [data-testid="stSidebar"] div[data-testid="stRadio"] > div,
 [data-testid="stSidebar"] div[data-testid="stRadio"] > div[role="radiogroup"] {
     flex-direction: column !important;

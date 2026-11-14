@@ -1,4 +1,4 @@
-"""Recover local order records after Razorpay succeeded but a DB write failed.
+"""Recover local order records after PAYTM succeeded but a DB write failed.
 
 This service only reconciles provider orders with an exact durable reservation.
 It never assumes a payment was captured; capture still requires normal signed
@@ -7,7 +7,11 @@ payment verification.
 import logging
 from decimal import Decimal
 
-import razorpay
+try:
+    import paytm as PAYTM
+except ImportError:
+    import razorpay as PAYTM
+paytm = PAYTM
 from sqlalchemy.orm import Session
 
 from app.api.checkout import _credentials
@@ -21,7 +25,7 @@ def reconcile_checkout_orders(db: Session, *, limit: int = 100) -> dict[str, int
     if not 1 <= limit <= 500:
         raise ValueError("limit must be between 1 and 500")
     key_id, key_secret = _credentials()
-    client = razorpay.Client(auth=(key_id, key_secret))
+    client = PAYTM.Client(auth=(key_id, key_secret))
     reservations = (
         db.query(CheckoutRequest)
         .filter(CheckoutRequest.provider_order_id.is_not(None))
@@ -54,7 +58,7 @@ def reconcile_checkout_orders(db: Session, *, limit: int = 100) -> dict[str, int
                 currency=reservation.currency, receipt=reservation.receipt,
                 status="ATTEMPTED" if provider_order.get("status") == "attempted" else "CREATED",
                 is_synthetic=False,
-                data_source="RAZORPAY_TEST" if key_id.startswith("rzp_test_") else "REAL",
+                data_source="PAYTM_TEST" if key_id.startswith("paytm_test_") else "REAL",
             ))
             db.add(CafeOrderItems(
                 order_id=reservation.provider_order_id,

@@ -207,7 +207,7 @@ def generate_500plus_people_dataset(target_count: int = 600):
             "net_payout_inr": str(net_dec),
             "payment_method": method,
             "issuing_bank": bank_code,
-            "gateway": "RAZORPAY_DIRECT" if method == "UPI" else "HDFC_SMARTHUB",
+            "gateway": "PAYTM_DIRECT" if method == "UPI" else "HDFC_SMARTHUB",
             "payment_status": last_status,
             "city": city,
             "is_synthetic": True,
