@@ -20,7 +20,7 @@ document.getElementById('pay').onclick = () => {
   busy = true; document.getElementById('pay').disabled = true; height(650);
   const reset = message => {busy=false;document.getElementById('pay').disabled=false;document.getElementById('status').textContent=message;height(140);};
   const instruments = args.preferred_method === 'upi' ? [{method:'upi'}] : [{method:'card'},{method:'wallet'}];
-  const checkout = new PAYTM({key:args.key_id,order_id:args.order_id,amount:args.amount,currency:'INR',name:'RAMESHSWARAM CAFE',description:args.description || 'Cafe order',theme:{color:'#00875A'},
+  const checkout = new PAYTM({key:args.key_id,order_id:args.order_id,amount:args.amount,currency:'INR',name:'RAMESHWARAM CAFE',description:args.description || 'Cafe order',theme:{color:'#00875A'},
     config:{display:{blocks:{preferred:{name:args.preferred_method === 'upi' ? 'Pay via UPI' : 'Cards and wallets',instruments}},sequence:['block.preferred'],preferences:{show_default_blocks:true}}},
     handler: response => {
       document.getElementById('status').textContent='Payment received. Waiting for server verificationâ€¦';

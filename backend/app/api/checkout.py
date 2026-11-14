@@ -99,7 +99,7 @@ def create_PAYTM_order(req: CreateOrderRequest, db: Session, *,
         raise HTTPException(400, str(exc)) from exc
     amount_minor = _amount_minor(total)
     if not 100 <= amount_minor <= 1_000_000_00:
-        raise HTTPException(400, "Order amount must be between â‚¹1 and â‚¹10,00,000.")
+        raise HTTPException(400, "Order amount must be between ₹1 and ₹10,00,000.")
     key_id, key_secret = _credentials()
 
     merchant = db.query(Merchant).filter(Merchant.merchant_id == merchant_id).first()

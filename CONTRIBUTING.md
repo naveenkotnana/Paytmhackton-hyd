@@ -1,40 +1,40 @@
 # Contributing to PayBridge
 
-Thank you for your interest in contributing to **PayBridge â€” AI-Powered Payment Operations & FinOps Intelligence Platform**!
+Thank you for your interest in contributing to **PayBridge — AI-Powered Payment Operations & FinOps Intelligence Platform**!
 
 ## Repository Architecture
 
 The repository is organized into a clean, modern modular structure:
 
 ```
-â”œâ”€â”€ .github/workflows/       # Automated CI/CD pipelines (lint, test, build)
-â”œâ”€â”€ backend/                 # FastAPI REST API, database models, payment services, ingestion
-â”‚   â”œâ”€â”€ app/                 # Core backend application modules
-â”‚   â”‚   â”œâ”€â”€ api/             # FastAPI routes & endpoints (v1)
-â”‚   â”‚   â”œâ”€â”€ core/            # Config, security, JWT auth
-â”‚   â”‚   â”œâ”€â”€ db/              # SQLAlchemy session & PostgreSQL/SQLite engine
-â”‚   â”‚   â”œâ”€â”€ models/          # Declarative ORM models (transactions, webhooks, audit)
-â”‚   â”‚   â”œâ”€â”€ rag/             # Vector store, hybrid retriever, grounding engine
-â”‚   â”‚   â”œâ”€â”€ schemas/         # Pydantic schemas (canonical payment, requests, responses)
-â”‚   â”‚   â””â”€â”€ services/        # Webhook processor, CSV mapper, URL fetcher, FinOps
-â”‚   â”œâ”€â”€ alembic/             # Database migrations
-â”‚   â”œâ”€â”€ config/              # YAML configs & customer profiles
-â”‚   â”œâ”€â”€ data/                # Sample datasets, raw uploads, lineage archives
-â”‚   â”œâ”€â”€ scripts/             # Data bootstrapping & evaluation runners
-â”‚   â”œâ”€â”€ main.py              # Backend entrypoint (`uvicorn backend:app`)
-â”‚   â””â”€â”€ rag_agent.py         # Standalone RAG CLI query agent
-â”œâ”€â”€ docs/                    # Technical architecture, API specs, governance docs
-â”œâ”€â”€ frontend/                # Streamlit Operations & Intelligence Dashboard
-â”‚   â”œâ”€â”€ views/               # Portal views (Overview, Transactions, Anomalies, FinOps)
-â”‚   â”œâ”€â”€ dashboard.py         # Main Streamlit application entrypoint
-â”‚   â”œâ”€â”€ components.py        # Reusable UI widgets & API client
-â”‚   â”œâ”€â”€ styles.py            # Custom CSS & design system
-â”‚   â””â”€â”€ Dockerfile           # Frontend container definition
-â”œâ”€â”€ ml/                      # Machine Learning anomaly detection models
-â”‚   â”œâ”€â”€ anomaly.py           # Isolation Forest + DBSCAN anomaly detector
-â”‚   â””â”€â”€ __init__.py          # ML package exports
-â”œâ”€â”€ screenshots/             # Product screenshots, architectural GIFs, and media
-â””â”€â”€ tests/                   # Automated test suite (Unit & Integration tests)
+├── .github/workflows/       # Automated CI/CD pipelines (lint, test, build)
+├── backend/                 # FastAPI REST API, database models, payment services, ingestion
+│   ├── app/                 # Core backend application modules
+│   │   ├── api/             # FastAPI routes & endpoints (v1)
+│   │   ├── core/            # Config, security, JWT auth
+│   │   ├── db/              # SQLAlchemy session & PostgreSQL/SQLite engine
+│   │   ├── models/          # Declarative ORM models (transactions, webhooks, audit)
+│   │   ├── rag/             # Vector store, hybrid retriever, grounding engine
+│   │   ├── schemas/         # Pydantic schemas (canonical payment, requests, responses)
+│   │   └── services/        # Webhook processor, CSV mapper, URL fetcher, FinOps
+│   ├── alembic/             # Database migrations
+│   ├── config/              # YAML configs & customer profiles
+│   ├── data/                # Sample datasets, raw uploads, lineage archives
+│   ├── scripts/             # Data bootstrapping & evaluation runners
+│   ├── main.py              # Backend entrypoint (`uvicorn backend:app`)
+│   └── rag_agent.py         # Standalone RAG CLI query agent
+├── docs/                    # Technical architecture, API specs, governance docs
+├── frontend/                # Streamlit Operations & Intelligence Dashboard
+│   ├── views/               # Portal views (Overview, Transactions, Anomalies, FinOps)
+│   ├── dashboard.py         # Main Streamlit application entrypoint
+│   ├── components.py        # Reusable UI widgets & API client
+│   ├── styles.py            # Custom CSS & design system
+│   └── Dockerfile           # Frontend container definition
+├── ml/                      # Machine Learning anomaly detection models
+│   ├── anomaly.py           # Isolation Forest + DBSCAN anomaly detector
+│   └── __init__.py          # ML package exports
+├── screenshots/             # Product screenshots, architectural GIFs, and media
+└── tests/                   # Automated test suite (Unit & Integration tests)
 ```
 
 ---

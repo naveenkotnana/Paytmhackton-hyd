@@ -1,6 +1,6 @@
 # PayBridge production readiness matrix
 
-Status is based on repository code and checks run on 2026-11-08. â€œImplementedâ€ means the stated behavior exists in this branch; it does not imply production certification.
+Status is based on repository code and checks run on 2026-11-08. "Implemented" means the stated behavior exists in this branch; it does not imply production certification.
 
 | Capability | Status | Evidence / limitation |
 |---|---|---|

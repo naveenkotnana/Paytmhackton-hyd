@@ -1,7 +1,7 @@
 """End-to-End SBI UPI Demonstration Workflow.
 
 Demonstrates the full fintech lifecycle:
-1. Customer initiates â‚¹2,500 payment via SBI UPI.
+1. Customer initiates ₹2,500 payment via SBI UPI.
 2. Delayed bank response -> status marked PENDING.
 3. Customer Portal reflects pending confirmation.
 4. Merchant Portal advises against order fulfillment.
@@ -23,12 +23,12 @@ def render_sbi_upi_demo(role: str = "ADMIN"):
     <div style="margin-bottom:1.5rem;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
             <div>
-                <span class="fintech-badge badge-critical" style="margin-bottom:6px; display:inline-block;">INTERACTIVE DEMO â€¢ FINTECH INTERVIEW SHOWCASE</span>
+                <span class="fintech-badge badge-critical" style="margin-bottom:6px; display:inline-block;">INTERACTIVE DEMO • FINTECH INTERVIEW SHOWCASE</span>
                 <h1 style="font-size:1.85rem; font-weight:800; color:#0A142F; margin:0;">
                     Live SBI UPI Pending Lifecycle Demonstration
                 </h1>
                 <p style="color:#64748B; font-size:0.92rem; margin-top:4px;">
-                    Experience how PayBridge handles a real-world â‚¹2,500 SBI UPI bank delay across all four platform personas.
+                    Experience how PayBridge handles a real-world ₹2,500 SBI UPI bank delay across all four platform personas.
                 </p>
             </div>
             <div style="text-align:right;">
@@ -64,7 +64,7 @@ def render_sbi_upi_demo(role: str = "ADMIN"):
             st.markdown("""
             - **Customer:** Aarav Sharma (`cust_sw_aarav`)
             - **Merchant:** Swiggy India (`mid_swiggy_01`)
-            - **Amount:** â‚¹2,500.00
+            - **Amount:** ₹2,500.00
             - **Rail:** UPI (VPA: `aarav@oksbi`)
             - **Issuing Bank:** State Bank of India (SBI)
             - **Gateway:** PAYTM Direct Switch
@@ -79,21 +79,21 @@ def render_sbi_upi_demo(role: str = "ADMIN"):
             st.subheader("2. Customer Portal Experience")
             st.info("""
             **Customer Advisory Shown:**
-            "PENDING: Payment of â‚¹2,500.00 to Swiggy India Awaiting Bank Confirmation.
+            "PENDING: Payment of ₹2,500.00 to Swiggy India Awaiting Bank Confirmation.
             Your payment is currently being verified with SBI. **Please avoid paying again** until the status is verified.
             If debited, your order will be confirmed automatically."
             """)
-            st.write("âœ… **Evidence Rule Upheld:** Platform never claims money is debited or refunded until verified.")
+            st.write("✅ **Evidence Rule Upheld:** Platform never claims money is debited or refunded until verified.")
 
         elif step.startswith("Step 3"):
             st.subheader("3. Merchant Operations & Fulfillment Advisory")
             st.warning("""
             **Merchant Portal Advisory Shown:**
-            "âš ï¸ HIGH PENDING VOLUME: Transaction `pay_sbi_upi_demo_01` (â‚¹2,500.00) is AWAITING BANK CONFIRMATION.
+            "⚠️ HIGH PENDING VOLUME: Transaction `pay_sbi_upi_demo_01` (₹2,500.00) is AWAITING BANK CONFIRMATION.
             **Do NOT dispatch food delivery order or goods** until final webhook is received.
             Gateway hub will auto-reconcile within 15 minutes."
             """)
-            st.write("âœ… **Prevents Merchant Financial Loss:** Protects merchant from fulfilling unconfirmed orders.")
+            st.write("✅ **Prevents Merchant Financial Loss:** Protects merchant from fulfilling unconfirmed orders.")
 
         elif step.startswith("Step 4"):
             st.subheader("4. Admin Incident Command Center Detection")
@@ -102,7 +102,7 @@ def render_sbi_upi_demo(role: str = "ADMIN"):
             - **Incident ID:** `INC-SBI-UPI-001`
             - **Category:** `BANK_CONNECTIVITY`
             - **Severity:** `HIGH`
-            - **Estimated Financial Exposure:** â‚¹120,000.00
+            - **Estimated Financial Exposure:** ₹120,000.00
             - **Baseline vs Observed SR:** 94.5% âž” 52.3%
             """)
 
@@ -152,9 +152,9 @@ def render_sbi_upi_demo(role: str = "ADMIN"):
                         st.rerun()
 
             elif txn and txn.status == "CAPTURED":
-                st.success("âœ… **Final Verified State: CAPTURED!**")
+                st.success("✅ **Final Verified State: CAPTURED!**")
                 st.markdown("""
-                - **Customer Notification:** "SUCCESS: Payment of â‚¹2,500.00 to Swiggy India Successful. Order confirmed."
+                - **Customer Notification:** "SUCCESS: Payment of ₹2,500.00 to Swiggy India Successful. Order confirmed."
                 - **Merchant Portal:** Order released for kitchen preparation and rider dispatch.
                 - **Admin Analytics:** Success rate counters updated, exposure cleared.
                 - **Audit Record:** Cryptographic SHA-256 verification receipt stored in audit ledger.

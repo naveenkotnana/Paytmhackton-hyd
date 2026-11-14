@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Merchant Portal — RAMESHSWARAM CAFE Payment & Order Operations.
+"""Merchant Portal — RAMESHWARAM CAFE Payment & Order Operations.
 
 Real local business receiving customer food and beverage orders.
 Focused on understandable business metrics, order statuses, and fulfillment advisories.
@@ -53,7 +53,7 @@ def render_merchant_portal(merchant_id: str = "mid_rameshwaram_01", page: str = 
             <div>
                 <div style="display:flex; align-items:center; gap:8px;">
                     <span style="font-size:1.4rem;">🏪</span>
-                    <span style="font-size:1.4rem; font-weight:800; color:#0F172A; letter-spacing:-0.02em;">RAMESHSWARAM CAFE</span>
+                    <span style="font-size:1.4rem; font-weight:800; color:#0F172A; letter-spacing:-0.02em;">RAMESHWARAM CAFE</span>
                     <span class="fintech-badge" style="background:#FEF3C7; color:#92400E; font-weight:700; font-size:0.7rem; padding:2px 8px; border-radius:4px;">MERCHANT PORTAL</span>
                 </div>
                 <div style="font-size:0.88rem; color:#64748B; margin-top:2px;">

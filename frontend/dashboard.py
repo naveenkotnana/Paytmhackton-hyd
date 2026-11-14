@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # ruff: noqa: E402
-"""PayBridge Payments â€” Fintech Payment Operations & Intelligence Platform UI.
+"""PayBridge Payments — Fintech Payment Operations & Intelligence Platform UI.
 
 Unified 3-Role Platform:
-1. ðŸ›¡ï¸ Admin: FinOps Command Center, Analytics, ML Anomaly Detection, AI Investigation, Approvals & Audit
-2. ðŸª Merchant (Rameshwaram Cafe): Real local store orders, GMV, fulfillment hold advisories & business impact
-3. ðŸ‘¤ Customer (Aarav): Transparent buyer ledger, live order cooking status & double-debit protection guarantee
+1. 🛡️ Admin: FinOps Command Center, Analytics, ML Anomaly Detection, AI Investigation, Approvals & Audit
+2. 🏪 Merchant (Rameshwaram Cafe): Real local store orders, GMV, fulfillment hold advisories & business impact
+3. 👤 Customer (Aarav): Transparent buyer ledger, live order cooking status & double-debit protection guarantee
 """
 from pathlib import Path
 import sys
@@ -67,7 +67,7 @@ from dashboard.views.customer_portal import render_customer_portal
 from dashboard.views.merchant_portal import render_merchant_portal
 
 st.set_page_config(
-    page_title="PayBridge Payments â€” AI FinOps Platform",
+    page_title="PayBridge Payments — AI FinOps Platform",
     page_icon=":zap:",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -113,14 +113,14 @@ with top_c_pills:
     # Exactly 3 Core Role Switcher Pills
     p1, p2, p3 = st.columns(3)
     with p1:
-        if st.button("ðŸ›¡ï¸ Admin", key="btn_top_admin", use_container_width=True, type="primary" if current_role == "ADMIN" else "secondary"):
+        if st.button("🛡️ Admin", key="btn_top_admin", use_container_width=True, type="primary" if current_role == "ADMIN" else "secondary"):
             st.session_state.role = "ADMIN"
             st.session_state.top_role_dropdown = "Admin"
             st.session_state.username = "admin"
             st.session_state.selected_nav = "Overview"
             st.rerun()
     with p2:
-        if st.button("ðŸª Merchant", key="btn_top_merchant", use_container_width=True, type="primary" if current_role == "MERCHANT" else "secondary"):
+        if st.button("🏪 Merchant", key="btn_top_merchant", use_container_width=True, type="primary" if current_role == "MERCHANT" else "secondary"):
             st.session_state.role = "MERCHANT"
             st.session_state.top_role_dropdown = "Merchant"
             st.session_state.username = "merchant"
@@ -128,7 +128,7 @@ with top_c_pills:
             st.session_state.selected_nav = "Overview"
             st.rerun()
     with p3:
-        if st.button("ðŸ‘¤ Customer", key="btn_top_customer", use_container_width=True, type="primary" if current_role == "CUSTOMER" else "secondary"):
+        if st.button("👤 Customer", key="btn_top_customer", use_container_width=True, type="primary" if current_role == "CUSTOMER" else "secondary"):
             st.session_state.role = "CUSTOMER"
             st.session_state.top_role_dropdown = "Customer"
             st.session_state.username = "customer"
@@ -167,7 +167,7 @@ with top_c_right:
             st.rerun()
 
     with r2:
-        if st.button("ðŸ”„", key="top_reload_btn", help="Refresh platform state"):
+        if st.button("🔄", key="top_reload_btn", help="Refresh platform state"):
             st.rerun()
 
 st.markdown("<div style='height: 0.5rem;'></div>", unsafe_allow_html=True)
@@ -250,7 +250,7 @@ with st.sidebar:
 
     st.markdown("""
     <div style="font-size:0.7rem; color:#64748B; margin-top:1.5rem; text-align:center; border-top:1px solid #1E3A5F; padding-top:0.8rem;">
-        PayBridge FinOps Engine<br>100% Synthetic Demo Data Â· Local Inference
+        PayBridge FinOps Engine<br>100% Synthetic Demo Data • Local Inference
     </div>
     """, unsafe_allow_html=True)
 

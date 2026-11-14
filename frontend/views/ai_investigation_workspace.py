@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""AI Investigation Workspace â€” PAYTM-Inspired Role-Based Fintech Platform.
+"""AI Investigation Workspace — PAYTM-Inspired Role-Based Fintech Platform.
 
 Features:
 - Dedicated evidence-based payment incident investigator.
@@ -30,7 +30,7 @@ def render_ai_investigation(role: str = "ADMIN"):
     <div style="margin-bottom:1.5rem;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
             <div>
-                <span class="fintech-badge badge-high" style="margin-bottom:6px; display:inline-block;">WORKSPACE 4 â€¢ AI INVESTIGATION WORKSPACE</span>
+                <span class="fintech-badge badge-high" style="margin-bottom:6px; display:inline-block;">WORKSPACE 4 • AI INVESTIGATION WORKSPACE</span>
                 <h1 style="font-size:1.85rem; font-weight:800; color:#0A142F; margin:0;">
                     Evidence-Based Payment Investigation
                 </h1>
@@ -40,7 +40,7 @@ def render_ai_investigation(role: str = "ADMIN"):
             </div>
             <div style="text-align:right;">
                 <span class="fintech-badge" style="background:#F0FDF4; color:#15803D; font-weight:700;">
-                    LOCAL OLLAMA ENGINE â€¢ ZERO PAID APIS
+                    LOCAL OLLAMA ENGINE • ZERO PAID APIS
                 </span>
             </div>
         </div>
@@ -69,12 +69,12 @@ def render_ai_investigation(role: str = "ADMIN"):
                             st.error(payment["explanation"])
                         else:
                             st.info(payment["explanation"])
-                        st.write(f"Payment: {payment['payment_id']} Â· Order: {payment['order_id']}")
+                        st.write(f"Payment: {payment['payment_id']} • Order: {payment['order_id']}")
                         cols = st.columns(3)
                         cols[0].metric("Amount", f"{payment['currency']} {payment['amount']}")
                         cols[1].metric("Saved status", payment["status"])
                         cols[2].metric("Method", payment["method"])
-                        st.caption(f"Merchant: {payment['merchant_id']} Â· Source: {payment['source']} Â· Recorded: {payment['recorded_at']}")
+                        st.caption(f"Merchant: {payment['merchant_id']} • Source: {payment['source']} • Recorded: {payment['recorded_at']}")
                         with st.expander("Recorded evidence"):
                             st.json(payment)
                 except ValueError as exc:
@@ -94,13 +94,13 @@ def render_ai_investigation(role: str = "ADMIN"):
         query = st.selectbox("Quick-Select Investigation Template:", sample_prompts)
         custom_query = st.text_input("Or type custom operational question:", value=query)
 
-        run_investigation = st.button("ðŸš€ Execute Evidence-Based Investigation", use_container_width=True)
+        run_investigation = st.button("🚀 Execute Evidence-Based Investigation", use_container_width=True)
 
         if run_investigation or "last_investigation" in st.session_state:
             st.session_state["last_investigation"] = custom_query
 
             # Fetch deterministic evidence from DB based on question
-            if "SBI" in custom_query.upper() or "RAMESHSWARAM" in custom_query.upper():
+            if "SBI" in custom_query.upper() or "RAMESHWARAM" in custom_query.upper():
                 # Query SBI specific failure evidence
                 sbi_txns = db.query(PaymentTransaction).filter(
                     PaymentTransaction.bank == "SBI",
@@ -118,7 +118,7 @@ def render_ai_investigation(role: str = "ADMIN"):
                 render_html("""
                 <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:20px; margin-bottom:18px;">
                     <span class="fintech-badge badge-critical" style="font-weight:700; margin-bottom:8px; display:inline-block;">INCIDENT SUMMARY</span>
-                    <h2 style="color:#0A142F; font-size:1.35rem; margin:0 0 6px 0;">UPI Gateway Timeout & Failure Surge â€” RAMESHSWARAM CAFE</h2>
+                    <h2 style="color:#0A142F; font-size:1.35rem; margin:0 0 6px 0;">UPI Gateway Timeout & Failure Surge — RAMESHWARAM CAFE</h2>
                     <p style="color:#475569; font-size:0.92rem; line-height:1.6; margin:0;">
                         Between 10:10 AM and 10:25 AM, UPI success rates dropped from a <b>93.8% baseline to 76.2%</b>.
                         The primary failure mode is issuing bank acknowledgement timeout (HTTP/Socket latency > 4,200ms),
@@ -128,7 +128,7 @@ def render_ai_investigation(role: str = "ADMIN"):
                 """)
 
                 # 2. Evidence Found
-                st.markdown("### ðŸ“‹ Evidence Found (Deterministic SQL Telemetry)")
+                st.markdown("### 📋 Evidence Found (Deterministic SQL Telemetry)")
                 e_col1, e_col2, e_col3, e_col4 = st.columns(4)
                 with e_col1:
                     st.metric("Observed Success Rate", f"{sr_sbi:.1f}%", "-42.2% drop vs baseline")
@@ -137,7 +137,7 @@ def render_ai_investigation(role: str = "ADMIN"):
                 with e_col3:
                     st.metric("Avg Bank Latency", "4,250 ms", "+3,800 ms spike")
                 with e_col4:
-                    st.metric("Calculated Exposure", f"â‚¹{float(exposure):,.2f}", "Deterministic SQL Sum")
+                    st.metric("Calculated Exposure", f"₹{float(exposure):,.2f}", "Deterministic SQL Sum")
 
                 st.markdown("#### Primary Error Code Breakdown")
                 st.json({
@@ -164,30 +164,30 @@ def render_ai_investigation(role: str = "ADMIN"):
                 """)
 
                 # 4. Merchant Impact
-                st.markdown("### ðŸª Impacted Merchants")
+                st.markdown("### 🏪 Impacted Merchants")
                 st.markdown("""
-                - **RAMESHSWARAM CAFE (`mid_rameshwaram_01`):** 27 pending/failed orders (Exposure: â‚¹7,560.00)
+                - **RAMESHWARAM CAFE (`mid_rameshwaram_01`):** 27 pending/failed orders (Exposure: ₹7,560.00)
                 - **Primary Location:** Indiranagar 100ft Road Store
                 - **Fulfillment Hold:** Automated customer safety advisories active
                 """)
 
                 # 5. Recommended Actions with Human Approval Gate
                 st.markdown("### âš¡ Recommended Operational Mitigations")
-                st.warning("âš ï¸ **Sensitive Operations Gate:** Traffic diversion and payout holds require Level 3 (Admin) approval.")
+                st.warning("⚠️ **Sensitive Operations Gate:** Traffic diversion and payout holds require Level 3 (Admin) approval.")
 
                 rec_c1, rec_c2 = st.columns(2)
                 with rec_c1:
                     st.markdown("""
                     **Recommended Action 1:** Dynamically prompt customer checkout to prefer HDFC/ICICI Netbanking or Alternate UPI App.
                     """)
-                    if st.button("âœ… Approve Dynamic Rail Advisory", key="app_rail"):
+                    if st.button("✅ Approve Dynamic Rail Advisory", key="app_rail"):
                         st.success("Action Approved! Checkout advisory dispatched to active merchant SDKs.")
 
                 with rec_c2:
                     st.markdown("""
                     **Recommended Action 2:** Temporarily throttle SBI UPI routing weight from 40% to 5% until bank latency falls below 2,500ms.
                     """)
-                    if st.button("ðŸ›¡ï¸ Approve Gateway Traffic Throttling", key="app_throttle"):
+                    if st.button("🛡️ Approve Gateway Traffic Throttling", key="app_throttle"):
                         st.success("Action Approved! Gateway traffic router adjusted.")
 
                 # 6. Confidence & Limitations

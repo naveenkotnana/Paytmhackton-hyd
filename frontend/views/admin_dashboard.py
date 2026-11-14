@@ -7,7 +7,7 @@ Responsibilities:
 - 10-Stage Visual Workflow:
     DATA INGESTION -> DATA QUALITY -> PAYMENT ANALYTICS -> ML ANOMALY DETECTION ->
     AI INVESTIGATION -> EVIDENCE -> HUMAN APPROVAL -> ACTION -> AUDIT
-- Demo Incident: RAMESHSWARAM CAFE UPI Failure Spike with interactive Approve/Reject.
+- Demo Incident: RAMESHWARAM CAFE UPI Failure Spike with interactive Approve/Reject.
 - Full Data Engineering visibility: CSV/URL ingestion, run IDs, data quality, and cryptographic audit.
 """
 import datetime as dt
@@ -325,9 +325,9 @@ def _render_admin_anomalies(db):
     """Render compact anomaly table."""
     st.markdown('<div style="font-size:0.88rem; font-weight:800; color:#0F172A; margin-bottom:0.75rem;">Active Payment Operations Anomalies</div>', unsafe_allow_html=True)
     anomalies_data = [
-        {"Transaction / Incident": "INC-RC-982", "Entity": "RAMESHSWARAM CAFE", "Amount": "₹280 - ₹4,200", "Gateway": "SBI UPI Switch", "Issue": "High failure rate (14.8%)", "Severity": "CRITICAL", "AI Status": "Investigating", "Action": "Review Gate"},
-        {"Transaction / Incident": "TXN_10291", "Entity": "RAMESHSWARAM CAFE", "Amount": "₹280", "Gateway": "SBI UPI", "Issue": "Gateway timeout (4,250ms)", "Severity": "HIGH", "AI Status": "Correlated", "Action": "Auto-Route"},
-        {"Transaction / Incident": "TXN_10292", "Entity": "RAMESHSWARAM CAFE", "Amount": "₹320", "Gateway": "SBI UPI", "Issue": "Switch latency spike", "Severity": "HIGH", "AI Status": "Correlated", "Action": "Auto-Route"},
+        {"Transaction / Incident": "INC-RC-982", "Entity": "RAMESHWARAM CAFE", "Amount": "₹280 - ₹4,200", "Gateway": "SBI UPI Switch", "Issue": "High failure rate (14.8%)", "Severity": "CRITICAL", "AI Status": "Investigating", "Action": "Review Gate"},
+        {"Transaction / Incident": "TXN_10291", "Entity": "RAMESHWARAM CAFE", "Amount": "₹280", "Gateway": "SBI UPI", "Issue": "Gateway timeout (4,250ms)", "Severity": "HIGH", "AI Status": "Correlated", "Action": "Auto-Route"},
+        {"Transaction / Incident": "TXN_10292", "Entity": "RAMESHWARAM CAFE", "Amount": "₹320", "Gateway": "SBI UPI", "Issue": "Switch latency spike", "Severity": "HIGH", "AI Status": "Correlated", "Action": "Auto-Route"},
         {"Transaction / Incident": "TXN_10304", "Entity": "HDFC Retail Rail", "Amount": "₹45,000", "Gateway": "HDFC", "Issue": "Settlement variance", "Severity": "LOW", "AI Status": "Resolved", "Action": "Audited"},
     ]
     st.dataframe(pd.DataFrame(anomalies_data), hide_index=True, use_container_width=True)

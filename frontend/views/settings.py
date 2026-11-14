@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Settings & Admin Governance View â€” FinOps Platform Administration."""
+"""Settings & Admin Governance View — FinOps Platform Administration."""
 import pandas as pd
 import streamlit as st
 
@@ -15,7 +15,7 @@ def render_settings(role: str):
     )
 
     t_gov, t_infra, t_api, t_pipe = st.tabs([
-        "ðŸ›¡ï¸ Access & Persona Governance",
+        "🛡️ Access & Persona Governance",
         "âš¡ Infrastructure Telemetry",
         "ðŸ”‘ FinOps API & Security Credentials",
         "âš™ï¸ Pipeline & Model Controls"
@@ -35,7 +35,7 @@ def render_settings(role: str):
             st.markdown(f"""
             <div style="background:{'#F0FDF4' if is_active else '#F8FAFC'}; border:1px solid {'#86EFAC' if is_active else '#E2E8F0'}; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-                    <strong style="color:#0F172A; font-size:0.9rem;">ðŸ›¡ï¸ Admin</strong>
+                    <strong style="color:#0F172A; font-size:0.9rem;">🛡️ Admin</strong>
                     <span class="fintech-badge {'badge-pass' if is_active else 'badge-critical'}">{'ACTIVE' if is_active else 'COMMAND'}</span>
                 </div>
                 <div style="font-size:0.75rem; color:#64748B; line-height:1.4; min-height:48px;">
@@ -57,7 +57,7 @@ def render_settings(role: str):
             st.markdown(f"""
             <div style="background:{'#F0FDF4' if is_active else '#F8FAFC'}; border:1px solid {'#86EFAC' if is_active else '#E2E8F0'}; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-                    <strong style="color:#0F172A; font-size:0.9rem;">ðŸª Merchant (Rameshwaram Cafe)</strong>
+                    <strong style="color:#0F172A; font-size:0.9rem;">🏪 Merchant (Rameshwaram Cafe)</strong>
                     <span class="fintech-badge {'badge-pass' if is_active else 'badge-high'}">{'ACTIVE' if is_active else 'STORE'}</span>
                 </div>
                 <div style="font-size:0.75rem; color:#64748B; line-height:1.4; min-height:48px;">
@@ -80,7 +80,7 @@ def render_settings(role: str):
             st.markdown(f"""
             <div style="background:{'#F0FDF4' if is_active else '#F8FAFC'}; border:1px solid {'#86EFAC' if is_active else '#E2E8F0'}; border-radius:8px; padding:1rem; margin-bottom:0.75rem;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-                    <strong style="color:#0F172A; font-size:0.9rem;">ðŸ‘¤ Customer (Aarav Sharma)</strong>
+                    <strong style="color:#0F172A; font-size:0.9rem;">👤 Customer (Aarav Sharma)</strong>
                     <span class="fintech-badge {'badge-pass' if is_active else 'badge-low'}">{'ACTIVE' if is_active else 'BUYER'}</span>
                 </div>
                 <div style="font-size:0.75rem; color:#64748B; line-height:1.4; min-height:48px;">
@@ -108,7 +108,7 @@ def render_settings(role: str):
         """, unsafe_allow_html=True)
         rbac_matrix = [
             {"Domain / Scope": "Overview & Revenue Analytics", "Customer": "DENIED (403)", "Merchant": "STORE GMV ONLY", "Admin": "FULL REVENUE HUB"},
-            {"Domain / Scope": "Order Creation & Checkout", "Customer": "EXECUTE (â‚¹280)", "Merchant": "RECEIVE ORDERS", "Admin": "MONITOR ONLY"},
+            {"Domain / Scope": "Order Creation & Checkout", "Customer": "EXECUTE (₹280)", "Merchant": "RECEIVE ORDERS", "Admin": "MONITOR ONLY"},
             {"Domain / Scope": "AI Investigation & RAG Agent", "Customer": "DENIED (403)", "Merchant": "SUMMARY ONLY", "Admin": "FULL COPILOT"},
             {"Domain / Scope": "Exception Remediation Approvals", "Customer": "DENIED (403)", "Merchant": "DENIED (403)", "Admin": "APPROVE / REJECT"},
             {"Domain / Scope": "Cryptographic Audit Ledger", "Customer": "DENIED (403)", "Merchant": "DENIED (403)", "Admin": "VERIFY INTEGRITY"},
@@ -173,10 +173,10 @@ def render_settings(role: str):
 
         k1, k2 = st.columns(2)
         with k1:
-            st.text_input("PAYTM Key ID", value="paytm_test_â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢", disabled=True, help="Exposed safely to frontend checkout.js")
+            st.text_input("PAYTM Key ID", value="paytm_test_••••••••••••", disabled=True, help="Exposed safely to frontend checkout.js")
             st.text_input("Order Creation Endpoint", value="POST /api/create-order", disabled=True)
         with k2:
-            st.text_input("PAYTM Key Secret", value="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢", type="password", disabled=True, help="Kept strictly on server in .env")
+            st.text_input("PAYTM Key Secret", value="••••••••••••••••••••", type="password", disabled=True, help="Kept strictly on server in .env")
             st.text_input("Payment Verification Endpoint", value="POST /api/verify-payment", disabled=True)
 
         st.markdown("""

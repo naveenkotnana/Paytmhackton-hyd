@@ -3,7 +3,7 @@
 """Generate and Ingest the Canonical 50,000 Transaction Payment Dataset.
 
 10 Target Indian Merchants:
-1. RAMESHSWARAM CAFE (mid_rameshwaram_01) - Food & Beverages
+1. RAMESHWARAM CAFE (mid_rameshwaram_01) - Food & Beverages
 2. URBAN EATS (mid_urban_eats_02) - Quick Service Restaurant
 3. FRESH BASKET (mid_fresh_basket_03) - Groceries
 4. TECHMART (mid_techmart_04) - Consumer Electronics
@@ -39,7 +39,7 @@ RAW_DATA_DIR = BACKEND_DIR / "data" / "raw"
 TARGET_CSV_PATH = RAW_DATA_DIR / "payment_platform_50000_transactions.csv"
 
 INDIAN_MERCHANTS = [
-    {"merchant_id": "mid_rameshwaram_01", "name": "RAMESHSWARAM CAFE", "category": "FOOD_DELIVERY", "email": "finance@rameshwaramcafe.in"},
+    {"merchant_id": "mid_rameshwaram_01", "name": "RAMESHWARAM CAFE", "category": "FOOD_DELIVERY", "email": "finance@rameshwaramcafe.in"},
     {"merchant_id": "mid_urban_eats_02", "name": "URBAN EATS", "category": "FOOD_DELIVERY", "email": "accounts@urbaneats.in"},
     {"merchant_id": "mid_fresh_basket_03", "name": "FRESH BASKET", "category": "GROCERY", "email": "billing@freshbasket.in"},
     {"merchant_id": "mid_techmart_04", "name": "TECHMART", "category": "ELECTRONICS", "email": "finance@techmart.in"},

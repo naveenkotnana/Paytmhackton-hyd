@@ -1,4 +1,4 @@
-# PayBridge verification â€” 6 November 2026
+# PayBridge verification — 6 November 2026
 
 ## Passed
 
@@ -8,7 +8,7 @@
 - Admin Payments search: an uploaded payment with an older transaction date was found. Import filtering and 100-row pagination replace the previous 15-newest-row-only view.
 - Sample incident UI: first approval persists, decision activity is visible, session-label changes do not overwrite the saved decision, and repeated approval is disabled.
 - Receipt UI: visible for a stored captured provider payment, hidden for a pending payment. Amount rendering checked using local fixture data.
-- Role navigation: Merchant â†’ Payments retains the Merchant role rather than reverting to Admin. This focused test exercised the actual navigation code with view-renderer stubs.
+- Role navigation: Merchant → Payments retains the Merchant role rather than reverting to Admin. This focused test exercised the actual navigation code with view-renderer stubs.
 - PAYTM credentials authenticated through a read-only provider lookup. A test order was created and stored. Test Mode checkout opened in the browser with the INR 280 order and reached the payment form.
 - JavaScript callback check: payment identifiers and signature are returned through the component message protocol. This check used a mocked browser environment.
 - Ruff passed for the changed payment and portal files; source compilation passed.

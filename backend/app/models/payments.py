@@ -150,7 +150,7 @@ Index("ix_pay_method_gateway", PaymentTransaction.method, PaymentTransaction.gat
 
 
 class PaymentEvent(Base):
-    """Immutable event log â€” each state transition is a new row.
+    """Immutable event log — each state transition is a new row.
 
     Deduplication key = (payment_id, event_type): the ingestion layer skips
     re-insertion of an already-recorded event so out-of-order or duplicate
@@ -170,7 +170,7 @@ class PaymentEvent(Base):
     event_source = Column(String(30), nullable=False, default="SIMULATOR")
     # SIMULATOR | WEBHOOK | MANUAL_RECONCILIATION
     idempotency_key = Column(String(100), unique=True, index=True, nullable=False)
-    # Composite: payment_id + "::" + event_type â€” enforced at DB level
+    # Composite: payment_id + "::" + event_type — enforced at DB level
     occurred_at = Column(DateTime, nullable=False, index=True)
     ingested_at = Column(DateTime, server_default=func.now(), index=True)
 
@@ -211,8 +211,8 @@ class PaymentIncident(Base):
 
     Design: one incident per operational event (e.g., 'HDFC gateway degradation').
     Many individual anomaly signals are merged here to avoid alert fatigue.
-    Severity, affected_banks, affected_methods are populated by the engine â€”
-    never by an LLM â€” to ensure reproducibility.
+    Severity, affected_banks, affected_methods are populated by the engine —
+    never by an LLM — to ensure reproducibility.
     """
 
     __tablename__ = "payment_incidents"

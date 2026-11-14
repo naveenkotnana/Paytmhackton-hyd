@@ -1,7 +1,7 @@
-# OpsPilot Dashboard Design â€” Fintech Analytics Redesign
+# OpsPilot Dashboard Design — Fintech Analytics Redesign
 
 ## 1. Design Inspiration
-The OpsPilot operations dashboard is visually and structurally inspired by modern Indian payment analytics platforms (specifically PAYTM's merchant and operations command centers). The objective is to present complex operational telemetryâ€”utility meter readings, apartment plan assignments, deterministic revenue proration, and statistical anomaly detectionâ€”with the clean visual hierarchy, density, and clarity of an enterprise payment gateway.
+The OpsPilot operations dashboard is visually and structurally inspired by modern Indian payment analytics platforms (specifically PAYTM's merchant and operations command centers). The objective is to present complex operational telemetry—utility meter readings, apartment plan assignments, deterministic revenue proration, and statistical anomaly detection—with the clean visual hierarchy, density, and clarity of an enterprise payment gateway.
 
 Key design principles borrowed from top-tier fintech interfaces:
 - **Dark Navy Navigation Anchor**: A high-contrast, distraction-free sidebar (`#0B1F3A`) that establishes a stable operational anchor.
@@ -65,7 +65,7 @@ SYSTEM
 
 ## 4. KPI Design
 Executive cards follow fintech conventions:
-- **Card 1 (Monthly Revenue)**: Large headline figure (`â‚¹10.58L` / `â‚¹1,057,858`) with percentage delta (`-1.1% vs previous month`) and 3-month rolling average context.
+- **Card 1 (Monthly Revenue)**: Large headline figure (`₹10.58L` / `₹1,057,858`) with percentage delta (`-1.1% vs previous month`) and 3-month rolling average context.
 - **Card 2 (Active Devices)**: Exact device count (`1,000`) across water meters and appliance controllers with 100% telemetry uptime.
 - **Card 3 (Open Exceptions)**: Count of records flagged by deterministic validation rules requiring operational review.
 - **Card 4 (Operational Health)**: Overall data pipeline and workflow execution score (`99.8%`).
@@ -133,6 +133,6 @@ Every tool call, user action, decision justification, latency measurement, and S
 ## 11. PAYTM Interview Relevance
 During an interview, this redesigned dashboard demonstrates:
 1. **Fintech Product Thinking**: Understanding how operations analysts and finance teams monitor transactional velocity, detect leakages, and reconcile exceptions.
-2. **Separation of Concerns**: Financial math is calculated deterministically via SQL window functions and Python revenue enginesâ€”never generated unpredictably by an LLM.
+2. **Separation of Concerns**: Financial math is calculated deterministically via SQL window functions and Python revenue engines—never generated unpredictably by an LLM.
 3. **Enterprise Governance**: Demonstrating that autonomous AI agents must be bounded by deterministic validation, grounding checks, and human approval gates before affecting production systems.
 4. **Local / Cost-Aware Engineering**: The entire system runs locally with zero external API fees, 100% data privacy, and optimized memory footprints suitable for real-world edge deployment.

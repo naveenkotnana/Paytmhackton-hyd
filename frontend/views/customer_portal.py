@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Customer Portal â€” customer-selected cafe orders and verified PAYTM checkout.
+"""Customer Portal — customer-selected cafe orders and verified PAYTM checkout.
 
 Simple, human-readable customer experience:
 - Empty cart by default; total reflects only selected menu items
@@ -63,14 +63,14 @@ def _render_payment_receipt(db, customer_id):
     if payment is None:
         return
     simulated_wallet = payment.data_source == "DEMO_WALLET"
-    st.success("Demo wallet payment successful â€” your order is confirmed." if simulated_wallet else "Payment successful â€” your order is confirmed.")
+    st.success("Demo wallet payment successful — your order is confirmed." if simulated_wallet else "Payment successful — your order is confirmed.")
     with st.container(border=True):
         st.subheader("Payment receipt")
         amount, status, mode = st.columns(3)
         amount.metric("Amount paid", f"{payment.currency} {payment.amount:,.2f}")
         status.metric("Payment status", "Captured")
         mode.metric("Mode", "Demo wallet" if simulated_wallet else "Test payment" if payment.data_source == "PAYTM_TEST" else "Live payment")
-        st.write("Merchant: RAMESHSWARAM CAFE")
+        st.write("Merchant: RAMESHWARAM CAFE")
         st.write(f"Payment reference: {payment.payment_id}")
         st.write(f"Order reference: {payment.order_id}")
         saved_items = db.get(CafeOrderItems, payment.order_id)
@@ -78,7 +78,7 @@ def _render_payment_receipt(db, customer_id):
         if receipt_items:
             st.dataframe(pd.DataFrame(receipt_items)[["name", "quantity", "unit_price", "subtotal"]], hide_index=True, use_container_width=True)
         st.caption("Paid using simulated wallet credit. No money moved through PAYTM." if simulated_wallet else "Confirmed by server-side signature and payment-provider verification.")
-        receipt = (f"PAYBRIDGE PAYMENT RECEIPT\nMerchant: RAMESHSWARAM CAFE\n"
+        receipt = (f"PAYBRIDGE PAYMENT RECEIPT\nMerchant: RAMESHWARAM CAFE\n"
                    f"Amount: {payment.currency} {payment.amount:.2f}\nStatus: CAPTURED\n"
                    f"Payment reference: {payment.payment_id}\nOrder reference: {payment.order_id}\n"
                    f"Source: {payment.data_source}\n")
@@ -127,12 +127,12 @@ def render_customer_portal(customer_id: str = "cust_aarav_01", page: str = "Orde
         <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
             <div>
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <span style="font-size:1.4rem;">ðŸ‘¤</span>
+                    <span style="font-size:1.4rem;">👤</span>
                     <span style="font-size:1.4rem; font-weight:800; color:#0F172A; letter-spacing:-0.02em;">{cust_name}'s Orders</span>
                     <span class="fintech-badge" style="background:#EFF6FF; color:#1D4ED8; font-weight:700; font-size:0.7rem; padding:2px 8px; border-radius:4px;">CUSTOMER PORTAL</span>
                 </div>
                 <div style="font-size:0.88rem; color:#64748B; margin-top:2px;">
-                    Ordering from <strong>RAMESHSWARAM CAFE</strong>
+                    Ordering from <strong>RAMESHWARAM CAFE</strong>
                 </div>
             </div>
             <div style="text-align:right;">
@@ -167,7 +167,7 @@ def render_customer_portal(customer_id: str = "cust_aarav_01", page: str = "Orde
 
             st.subheader("Choose your cafe order")
             combo1, combo2 = st.columns(2)
-            for col, title, preset in [(combo1, "Breakfast combo Â· â‚¹280", DEFAULT_CART), (combo2, "Snack combo Â· â‚¹150", SNACK_CART)]:
+            for col, title, preset in [(combo1, "Breakfast combo • ₹280", DEFAULT_CART), (combo2, "Snack combo • ₹150", SNACK_CART)]:
                 with col:
                     if st.button(title, key="preset_" + title, use_container_width=True):
                         _start_cafe_cart(dict(preset))
@@ -180,7 +180,7 @@ def render_customer_portal(customer_id: str = "cust_aarav_01", page: str = "Orde
                 columns = st.columns(3)
                 for i, (item_id, (name, price)) in enumerate(MENU.items()):
                     with columns[i % 3]:
-                        chosen[item_id] = st.number_input(f"{name} Â· â‚¹{price:.0f}", min_value=0, max_value=10, value=st.session_state.cafe_cart.get(item_id, 0), step=1, key="cart_qty_" + item_id)
+                        chosen[item_id] = st.number_input(f"{name} • ₹{price:.0f}", min_value=0, max_value=10, value=st.session_state.cafe_cart.get(item_id, 0), step=1, key="cart_qty_" + item_id)
                 apply_cart = st.form_submit_button("Update cart", type="primary")
             if apply_cart:
                 try:
@@ -191,7 +191,7 @@ def render_customer_portal(customer_id: str = "cust_aarav_01", page: str = "Orde
             cart_has_items = any(st.session_state.cafe_cart.values())
             if cart_has_items:
                 cart_items, cart_total = price_cart(st.session_state.cafe_cart)
-                items_html = "<br>".join(f"â€¢ <strong>{item['name']}</strong> Ã— {item['quantity']} â€” â‚¹{item['subtotal']}" for item in cart_items)
+                items_html = "<br>".join(f"• <strong>{item['name']}</strong> Ã— {item['quantity']} — ₹{item['subtotal']}" for item in cart_items)
             else:
                 cart_items, cart_total = [], Decimal("0.00")
                 items_html = "Your cart is empty. Choose a combo or add menu items above."
@@ -199,7 +199,7 @@ def render_customer_portal(customer_id: str = "cust_aarav_01", page: str = "Orde
 
             is_paid = st.session_state.aarav_payment_status == "PAID"
 
-            badge_text = "âœ… Payment Successful" if is_paid else (f"â³ Payment Pending (â‚¹{cart_total:,.2f})" if cart_has_items else "ðŸ›’ Cart Empty")
+            badge_text = "✅ Payment Successful" if is_paid else (f"â³ Payment Pending (₹{cart_total:,.2f})" if cart_has_items else "ðŸ›’ Cart Empty")
             badge_bg = "#ECFDF5" if is_paid else "#FEF3C7"
             badge_color = "#059669" if is_paid else "#B45309"
             kitchen_status = "Preparing Your Food" if is_paid else ("Awaiting Payment Confirmation" if cart_has_items else "Add items to start an order")
@@ -211,7 +211,7 @@ def render_customer_portal(customer_id: str = "cust_aarav_01", page: str = "Orde
             <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:1.4rem; box-shadow:0 2px 6px rgba(0,0,0,0.02); margin-bottom:1.5rem;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid #F1F5F9;">
                     <div>
-                        <div style="font-size:0.75rem; font-weight:700; color:#64748B; text-transform:uppercase;">Current Order â€¢ RAMESHSWARAM CAFE</div>
+                        <div style="font-size:0.75rem; font-weight:700; color:#64748B; text-transform:uppercase;">Current Order • RAMESHWARAM CAFE</div>
                         <h2 style="font-size:1.25rem; font-weight:800; color:#0F172A; margin:2px 0;">Order #{display_order}</h2>
                     </div>
                     <span style="font-size:0.82rem; font-weight:700; background:{badge_bg}; color:{badge_color}; padding:4px 12px; border-radius:999px;">
@@ -225,7 +225,7 @@ def render_customer_portal(customer_id: str = "cust_aarav_01", page: str = "Orde
                             {items_html}
                         </div>
                         <div style="margin-top:12px; font-size:1.15rem; font-weight:800; color:#0F172A;">
-                            Total: â‚¹{cart_total:,.2f}
+                            Total: ₹{cart_total:,.2f}
                         </div>
                     </div>
                     <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:1rem; text-align:center;">
@@ -246,8 +246,8 @@ def render_customer_portal(customer_id: str = "cust_aarav_01", page: str = "Orde
             use_wallet = payment_method == "PayBridge Wallet (demo)"
             if use_wallet:
                 wallet = get_wallet(db, customer_id)
-                st.metric("Wallet balance Â· simulated INR", f"â‚¹{wallet.balance:,.2f}")
-                st.caption(f"Starts with â‚¹50,000 in demo credit. Pay once to debit â‚¹{cart_total:,.2f}, save the payment and show your receipt. This wallet is separate from PAYTM.")
+                st.metric("Wallet balance • simulated INR", f"₹{wallet.balance:,.2f}")
+                st.caption(f"Starts with ₹50,000 in demo credit. Pay once to debit ₹{cart_total:,.2f}, save the payment and show your receipt. This wallet is separate from PAYTM.")
             else:
                 st.caption("PAYTM UPI and external wallets depend on the methods enabled for your account. Test keys use simulated provider payments.")
             if "wallet_payment_request" not in st.session_state:
@@ -256,7 +256,7 @@ def render_customer_portal(customer_id: str = "cust_aarav_01", page: str = "Orde
             c_col1, c_col2 = st.columns([1.5, 1.2])
 
             with c_col1:
-                if st.button(f"ðŸ’° Pay â‚¹{cart_total:,.2f} from Wallet" if use_wallet else f"ðŸ’³ Pay â‚¹{cart_total:,.2f} via PAYTM", key="btn_open_rzp_modal", type="primary", use_container_width=True, disabled=is_paid or not cart_has_items):
+                if st.button(f"💰 Pay ₹{cart_total:,.2f} from Wallet" if use_wallet else f"ðŸ’³ Pay ₹{cart_total:,.2f} via PAYTM", key="btn_open_rzp_modal", type="primary", use_container_width=True, disabled=is_paid or not cart_has_items):
                     if use_wallet:
                         try:
                             paid = pay_order(db, customer_id, st.session_state.wallet_payment_request, cart=st.session_state.cafe_cart)
@@ -296,7 +296,7 @@ def render_customer_portal(customer_id: str = "cust_aarav_01", page: str = "Orde
                     st.rerun()
 
             with c_col2:
-                if st.button("ðŸ”„ Reset Order State", key="btn_reset_order_state", use_container_width=True):
+                if st.button("🔄 Reset Order State", key="btn_reset_order_state", use_container_width=True):
                     st.session_state.aarav_payment_status = "PENDING"
                     st.session_state.wallet_payment_request = uuid.uuid4().hex
                     st.session_state.aarav_order_id = ""
@@ -347,25 +347,25 @@ def render_customer_portal(customer_id: str = "cust_aarav_01", page: str = "Orde
             render_html(f"""
             <div style="display:flex; justify-content:space-between; align-items:center; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; padding:1rem 1.25rem; margin-bottom:1.5rem;">
                 <div style="display:flex; flex-direction:column; align-items:center; text-align:center; flex:1;">
-                    <div style="width:26px; height:26px; border-radius:50%; background:#10B981; color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.75rem;">âœ“</div>
+                    <div style="width:26px; height:26px; border-radius:50%; background:#10B981; color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.75rem;">✓</div>
                     <div style="font-size:0.78rem; font-weight:700; color:#0F172A; margin-top:4px;">Order Placed</div>
                     <div style="font-size:0.68rem; color:#64748B;">10:14:00 AM</div>
                 </div>
                 <div style="flex:0.5; height:2px; background:#10B981;"></div>
                 <div style="display:flex; flex-direction:column; align-items:center; text-align:center; flex:1;">
-                    <div style="width:26px; height:26px; border-radius:50%; background:#10B981; color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.75rem;">âœ“</div>
+                    <div style="width:26px; height:26px; border-radius:50%; background:#10B981; color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.75rem;">✓</div>
                     <div style="font-size:0.78rem; font-weight:700; color:#0F172A; margin-top:4px;">Payment Initiated</div>
                     <div style="font-size:0.68rem; color:#64748B;">{"Demo wallet" if use_wallet else "PAYTM Standard"}</div>
                 </div>
                 <div style="flex:0.5; height:2px; background:{c_step4};"></div>
                 <div style="display:flex; flex-direction:column; align-items:center; text-align:center; flex:1;">
-                    <div style="width:26px; height:26px; border-radius:50%; background:{c_step4}; color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.75rem;">{'âœ“' if is_paid else 'â³'}</div>
+                    <div style="width:26px; height:26px; border-radius:50%; background:{c_step4}; color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.75rem;">{'✓' if is_paid else 'â³'}</div>
                     <div style="font-size:0.78rem; font-weight:700; color:#0F172A; margin-top:4px;">Payment Verified</div>
                     <div style="font-size:0.68rem; color:#64748B;">{"Wallet debit saved" if use_wallet else "HMAC-SHA256 Sig"}</div>
                 </div>
                 <div style="flex:0.5; height:2px; background:{c_step4};"></div>
                 <div style="display:flex; flex-direction:column; align-items:center; text-align:center; flex:1;">
-                    <div style="width:26px; height:26px; border-radius:50%; background:{c_step4}; color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.75rem;">{'âœ“' if is_paid else 'â³'}</div>
+                    <div style="width:26px; height:26px; border-radius:50%; background:{c_step4}; color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.75rem;">{'✓' if is_paid else 'â³'}</div>
                     <div style="font-size:0.78rem; font-weight:700; color:#0F172A; margin-top:4px;">Kitchen Notified</div>
                     <div style="font-size:0.68rem; color:#64748B;">Order Sent to Counter</div>
                 </div>
@@ -382,7 +382,7 @@ def render_customer_portal(customer_id: str = "cust_aarav_01", page: str = "Orde
             render_html("""
             <div style="background:#EFF6FF; border:1px solid #BFDBFE; border-radius:10px; padding:0.9rem 1.25rem;">
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <span style="font-size:1.1rem;">ðŸ›¡ï¸</span>
+                    <span style="font-size:1.1rem;">🛡️</span>
                     <strong style="color:#1E40AF; font-size:0.88rem;">Payment status guidance</strong>
                 </div>
                 <div style="font-size:0.8rem; color:#1E3A8A; margin-top:4px;">
