@@ -1,0 +1,58 @@
+================================================================
+PayBridge setup � synthetic data, local inference
+================================================================
+
+[1/6] Schema
+  tables created
+
+[2/6] Ingestion + validation
+[PASS] building_master            received=    10 loaded=    10 rejected=0
+[PASS] apartment_master           received=   500 loaded=   500 rejected=0
+[PASS] device_service_master      received=  1000 loaded=  1000 rejected=0
+[PASS] rental_plan_data           received=     3 loaded=     3 rejected=0
+[PASS] water_plan_data            received=     3 loaded=     3 rejected=0
+[PASS] device_plan_assignments    received=  1000 loaded=  1000 rejected=0
+[PASS] water_usage_data           received= 91501 loaded= 91501 rejected=0
+
+[2b/6] 50,000 Payment Platform Transactions Ingestion (10 Merchants)
+Seeded 10 new Indian merchants into database.
+Generating 50,000 transactions to D:\Deploy-OpsPilot-Razorpay-inspired-AI-FinOps-Platform\backend\data\raw\payment_platform_50000_transactions.csv...
+Generated 50,000 records (7.9 MB).
+
+Ingesting 50,000 transactions through Data Engineering pipeline...
+================================================================
+Data Engineering Ingestion Lineage Summary:
+  Run ID:        RUN-20261108100717-376f50
+  Received:      50,000
+  Accepted:      50,000
+  Rejected:      0
+  Duplicated:    0
+  Duration:      15.38s
+================================================================
+
+[3/6] Revenue calculation
+  2026-04: 500 apartments, total=925,124.11, exceptions=6
+  2026-05: 500 apartments, total=1,062,251.37, exceptions=0
+  2026-06: 500 apartments, total=1,057,915.77, exceptions=0
+  2026-07: 500 apartments, total=1,069,312.45, exceptions=0
+  2026-08: 500 apartments, total=1,069,652.51, exceptions=0
+  2026-09: 500 apartments, total=1,057,857.54, exceptions=0
+
+[4/6] Anomaly detection + alerts
+  {'rows_scored': 60, 'anomalies': 5, 'alerts': 0}
+
+[5/6] Demo users
+  seeded 0 new user(s) (analyst/manager/admin � see docs/security.md)
+
+[6/6] RAG index
+  {'documents': 9, 'chunks': 51, 'mode': 'tfidf'}
+
+Ollama: 1 model(s): ['qwen2.5:3b-instruct']
+
+Done in 56.1s
+
+Next:
+  uvicorn backend:app --reload               # API  -> localhost:8000/docs
+  streamlit run frontend.py                  # UI   -> localhost:8501
+  python scripts/run_rag_eval.py             # measured RAG metrics
+  python scripts/run_agent_eval.py           # measured agent/security metrics

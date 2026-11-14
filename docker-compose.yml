@@ -1,0 +1,74 @@
+# Local submission demo: both services share the same SQLite dataset.
+services:
+  api:
+    build: .
+    environment:
+      DEMO_MODE: "true"
+      DATABASE_URL: sqlite:////app/backend/data/payment_data.db
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:3b-instruct}
+      JWT_SECRET: ${JWT_SECRET:-dev-only-change-me}
+    ports: ["127.0.0.1:8000:8000"]
+    volumes: ["./backend/data:/app/backend/data"]
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    command: >
+      sh -c "python backend/scripts/setup_demo.py &&
+             uvicorn backend:app --host 0.0.0.0 --port 8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/openapi.json', timeout=5)"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+  dashboard:
+    build: {context: ., dockerfile: frontend/Dockerfile}
+    depends_on:
+      api: {condition: service_healthy}
+    environment:
+      DEMO_MODE: "true"
+      DATABASE_URL: sqlite:////app/backend/data/payment_data.db
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:3b-instruct}
+    ports: ["127.0.0.1:8501:8501"]
+    volumes: ["./backend/data:/app/backend/data"]
+    extra_hosts: ["host.docker.internal:host-gateway"]
+
+  # PostgreSQL-backed production API profile. The existing local demo profile
+  # above intentionally remains SQLite-backed; the Streamlit UI is blocked in
+  # non-demo mode until its pages are migrated to authenticated API calls.
+  postgres:
+    image: postgres:16-alpine
+    profiles: ["production"]
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?set POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  api-production:
+    build: .
+    profiles: ["production"]
+    depends_on:
+      postgres: {condition: service_healthy}
+    environment:
+      DEMO_MODE: "false"
+      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER:?set POSTGRES_USER}:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:?set POSTGRES_DB}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET to a unique 32+ character value}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:?set ALLOWED_ORIGINS}
+      CHECKOUT_MERCHANT_ID: ${CHECKOUT_MERCHANT_ID:?set CHECKOUT_MERCHANT_ID}
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID:-}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET:-}
+    command: >
+      sh -c "cd backend && alembic upgrade head && cd .. &&
+      uvicorn backend:app --host 0.0.0.0 --port 8000"
+    ports: ["127.0.0.1:8000:8000"]
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
