@@ -26,7 +26,6 @@ dependencies = [
     "python-multipart>=0.0.9",
     "PyJWT>=2.8",
     "python-dotenv>=1.0",
-    "razorpay>=1.4.1",
     "httpx>=0.26",
     "langgraph>=0.2",
     "streamlit>=1.30",

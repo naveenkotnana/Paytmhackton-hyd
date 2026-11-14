@@ -39,6 +39,7 @@ if (BACKEND_DIR / "data").exists():
     DATA_DIR = BACKEND_DIR / "data"
 else:
     DATA_DIR = PROJECT_ROOT / "data"
+DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 
 class Settings:
@@ -123,3 +124,5 @@ def validate_runtime_configuration(config: Optional[Settings] = None) -> None:
 
 
 settings = Settings()
+for _path in (settings.RAW_DIR, settings.DOC_DIR, settings.PROC_DIR, DATA_DIR):
+    _path.mkdir(parents=True, exist_ok=True)

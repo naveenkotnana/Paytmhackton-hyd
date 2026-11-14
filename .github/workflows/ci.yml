@@ -5,6 +5,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
+      PYTHONPATH: .
       DEMO_MODE: "true"
       JWT_SECRET: "ci-only-not-for-deployment-secret-value"
       DATABASE_URL: postgresql+psycopg2://paybridge_ci:ci-only-not-a-secret@localhost:5432/paybridge_ci
@@ -37,7 +38,8 @@ jobs:
         run: ruff check backend frontend ml tests
 
       - name: Type check (Mypy)
-        run: mypy backend/app/models backend/app/core backend/app/schemas backend/app/services --ignore-missing-imports
+        working-directory: backend
+        run: mypy --config-file mypy.ini app/models app/core app/schemas app/services --ignore-missing-imports
 
       - name: Bootstrap data & schema
         run: |

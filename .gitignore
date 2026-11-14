@@ -16,3 +16,6 @@ backend/data/rejected/*.csv
 backend/data/raw/ingestion_archive/*.csv
 backend/data/raw/payment_platform_50000_transactions.csv
 node_modules/
+.paybridge_deck_build/
+.paybridge_interview_build/
+docs/.paybridge_deck_build/
